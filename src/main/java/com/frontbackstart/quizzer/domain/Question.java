@@ -1,5 +1,7 @@
 package com.frontbackstart.quizzer.domain;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -7,23 +9,25 @@ public class Question{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@ManyToOne
 	private Integer questionId;
 
-	@OneToMany
-	private Integer quizId;
+	@ManyToOne
+	private Quiz quiz;
 
 	private String questionText;
 
 	private String difficulty;
 
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answers;
+
 	public Question(){
 		super();
 	}
 
-	public Question(Integer questionId, Integer quizId, String questionText, String difficulty){
+	public Question(Integer questionId, Quiz quiz, String questionText, String difficulty){
 		this.questionId = questionId;
-		this.quizId = quizId;
+		this.quiz = quiz;
 		this.questionText = questionText;
 		this.difficulty = difficulty;
 	}
@@ -36,12 +40,12 @@ public class Question{
 		this.questionId = questionId;
 	}
 
-	public Integer getQuizId() {
-		return quizId;
+	public Quiz getQuiz() {
+		return quiz;
 	}
 
-	public void setQuizId(Integer quizId) {
-		this.quizId = quizId;
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
 	}
 
 	public String getQuestionText() {
@@ -60,5 +64,11 @@ public class Question{
 		this.difficulty = difficulty;
 	}
 
+	public List<Answer> getAnswers() {
+        return answers;
+    }
 
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
 }

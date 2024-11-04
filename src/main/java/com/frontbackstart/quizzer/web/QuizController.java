@@ -3,6 +3,8 @@ package com.frontbackstart.quizzer.web;
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,8 @@ public class QuizController{
 	}
 	@PostMapping("/addquiz")
 	public String saveQuiz(Quiz quiz){
+		quiz.setCreated(LocalDateTime.now());
 		quizRepository.save(quiz);
-		return "redirect:quizzes";
+		return "redirect:/quizzes";
 	}
 }

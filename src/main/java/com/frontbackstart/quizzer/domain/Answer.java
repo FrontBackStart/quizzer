@@ -8,8 +8,8 @@ public class Answer{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer answerId;
 
-	@OneToMany
-	private Integer questionId;
+	@ManyToOne
+	private Question question;
 
 	private String answerText;
 
@@ -18,9 +18,9 @@ public class Answer{
 	public Answer(){
 		super();
 	}
-	public Answer(Integer answerId, Integer questionId, String answerText, Boolean isRight){
+	public Answer(Integer answerId, Question question, String answerText, Boolean isRight){
 		this.answerId = answerId;
-		this.questionId = questionId;
+		this.question = question;
 		this.answerText = answerText;
 		this.isRight = isRight;
 	}
@@ -33,12 +33,12 @@ public class Answer{
 		this.answerId = answerId;
 	}
 
-	public Integer getQuestionId() {
-		return questionId;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestionId(Integer questionId) {
-		this.questionId = questionId;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 	public String getAnswerText() {

@@ -2,19 +2,22 @@ package com.frontbackstart.quizzer.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Quiz{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@ManyToOne
 	private Integer quizId;
 
 	private Boolean published;
 
 	private LocalDateTime created;
 
+	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private List<Question> questions;
+	
 	public Quiz(){
 		super();
 	}
@@ -49,5 +52,11 @@ public class Quiz{
 		this.created = created;
 	}
 
+	public List<Question> getQuestions() {
+        return questions;
+    }
 
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 }
