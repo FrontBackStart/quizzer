@@ -15,5 +15,43 @@ public class Answer{
 
 	private Boolean isRight;
 
+	public Answer(Integer questionId, String answerText, Boolean isRight){
+		this.answerId = answerId;
+		this.answerText = answerText;
+		this.isRight = isRight;
+	}
+
+	public Integer getAnswerId() {
+		return answerId;
+	}
+
+	public void setAnswerId(Integer answerId) {
+		this.answerId = answerId;
+	}
+
+	public Integer getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
+
+	public String getAnswerText() {
+		return answerText;
+	}
+
+	public void setAnswerText(String answerText) {
+		this.answerText = answerText;
+	}
+
+	public Boolean getIsRight() {
+		return isRight;
+	}
+
+	public void setIsRight(Boolean isRight) {
+		this.isRight = isRight;
+	}
+
 
 }
