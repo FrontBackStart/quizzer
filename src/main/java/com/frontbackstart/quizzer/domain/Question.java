@@ -17,6 +17,10 @@ public class Question{
 
 	private String difficulty;
 
+	public Question(){
+		super();
+	}
+
 	public Question(Integer questionId, Integer quizId, String questionText, String difficulty){
 		this.questionId = questionId;
 		this.quizId = quizId;
