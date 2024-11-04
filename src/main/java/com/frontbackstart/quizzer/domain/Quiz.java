@@ -15,6 +15,10 @@ public class Quiz{
 
 	private LocalDateTime created;
 
+	public Quiz(){
+		super();
+	}
+
 	public Quiz(Integer quizId, Boolean published, LocalDateTime created){
 		this.quizId = quizId;
 		this.published = published;
