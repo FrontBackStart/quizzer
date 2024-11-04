@@ -15,8 +15,9 @@ public class Answer{
 
 	private Boolean isRight;
 
-	public Answer(Integer questionId, String answerText, Boolean isRight){
+	public Answer(Integer answerId, Integer questionId, String answerText, Boolean isRight){
 		this.answerId = answerId;
+		this.questionId = questionId;
 		this.answerText = answerText;
 		this.isRight = isRight;
 	}
