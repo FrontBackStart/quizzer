@@ -25,8 +25,7 @@ public class Question{
 		super();
 	}
 
-	public Question(Integer questionId, Quiz quiz, String questionText, String difficulty){
-		this.questionId = questionId;
+	public Question(Quiz quiz, String questionText, String difficulty){
 		this.quiz = quiz;
 		this.questionText = questionText;
 		this.difficulty = difficulty;

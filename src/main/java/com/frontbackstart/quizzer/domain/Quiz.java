@@ -17,13 +17,12 @@ public class Quiz{
 
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions;
-	
+
 	public Quiz(){
 		super();
 	}
 
-	public Quiz(Integer quizId, Boolean published, LocalDateTime created){
-		this.quizId = quizId;
+	public Quiz(Boolean published, LocalDateTime created){
 		this.published = published;
 		this.created = created;
 	}

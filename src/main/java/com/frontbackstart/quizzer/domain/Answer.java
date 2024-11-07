@@ -18,8 +18,7 @@ public class Answer{
 	public Answer(){
 		super();
 	}
-	public Answer(Integer answerId, Question question, String answerText, Boolean isRight){
-		this.answerId = answerId;
+	public Answer(Question question, String answerText, Boolean isRight){
 		this.question = question;
 		this.answerText = answerText;
 		this.isRight = isRight;
