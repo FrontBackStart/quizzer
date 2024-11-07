@@ -18,7 +18,7 @@ public class QuizController{
 
 	@GetMapping("/")
 	public String getIndex(Model model){
-		return "index";
+		return "redirect:quizzes";
 	}
 
 	@GetMapping("/quizzes")
