@@ -16,6 +16,11 @@ public class QuizController{
 	@Autowired
 	private QuizRepository quizRepository;
 
+	@GetMapping("/")
+	public String getIndex(Model model){
+		return "index";
+	}
+
 	@GetMapping("/quizzes")
 	public String getQuizzes(Model model){
 		//List<Answer> answers = answerRepository.findAll();
