@@ -11,6 +11,10 @@ public class Quiz{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer quizId;
 
+	private String name;
+
+	private String description;
+
 	private Boolean published;
 
 	private LocalDateTime created;
@@ -22,7 +26,9 @@ public class Quiz{
 		super();
 	}
 
-	public Quiz(Boolean published, LocalDateTime created){
+	public Quiz(String name, String description, Boolean published, LocalDateTime created){
+		this.name = name;
+		this.description = description;
 		this.published = published;
 		this.created = created;
 	}
@@ -33,6 +39,22 @@ public class Quiz{
 
 	public void setQuizId(Integer quizId) {
 		this.quizId = quizId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Boolean getPublished() {

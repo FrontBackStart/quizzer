@@ -29,7 +29,7 @@ public class QuizzerApplication {
 			LocalDateTime added = LocalDateTime.of(2021, 11, 07, 15, 15);
 			return (args) -> {
 				log.info("Create Quizzes");
-				Quiz quiz1 = new Quiz(true, added);
+				Quiz quiz1 = new Quiz("Capital cities", "Quiz about capital cities", true, added);
 				quizRepo.save(quiz1);
 
 				log.info("Create Questions");
