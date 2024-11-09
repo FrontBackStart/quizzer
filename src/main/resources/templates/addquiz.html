@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Quizzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
+</head>
+
+<body style="padding: 15px">
+    <h1>Quizzer</h1>
+    <form th:object="${quiz}" th:action="@{addquiz}" method="post">
+        <input type="checkbox" id="published" th:field="*{published}">
+        <label for="published">Published</label>
+
+        <input type="submit" value="Save" />
+        <a type="button" class="btn " href=/quizzes>Cancel</a>
+    </form>
+</body>
+</html>

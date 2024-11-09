@@ -57,9 +57,9 @@ public class QuizControllerTest {
     @BeforeEach
     void setUp() {
         model = new BindingAwareModelMap();
-        testQuiz = new Quiz(1, true, LocalDateTime.now());
-        testQuestion = new Question(1, testQuiz, "Test question?", "Easy");
-        testAnswer = new Answer(1, testQuestion, "Test answer", true);
+        testQuiz = new Quiz(true, LocalDateTime.now());
+        testQuestion = new Question(testQuiz, "Test question?", "Easy");
+        testAnswer = new Answer(testQuestion, "Test answer", true);
         
         testQuiz.setQuestions(Arrays.asList(testQuestion));
         testQuestion.setAnswers(Arrays.asList(testAnswer));
