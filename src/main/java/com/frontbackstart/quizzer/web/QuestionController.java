@@ -36,9 +36,25 @@ public class QuestionController {
         return "addquestion";
     }
 
-    @PostMapping("/addquestion")
+    @PostMapping("/savequestion")
     public String saveQuestion(@ModelAttribute("question") Question question) {
         questionRepository.save(question);
         return "redirect:/quiz/" + question.getQuiz().getQuizId() + "/questions";
     }
+
+    @GetMapping("/editquestion/{questionId}")
+    public String editQuestion(@PathVariable("questionId") Integer questionId, Model model){
+    	model.addAttribute("question", questionRepository.findById(questionId).orElseThrow());
+    	return "editquestion";
+    }
+
+    @GetMapping("/deletequestion/{questionId}")
+	public String deleteQuestion(@PathVariable("questionId") Integer questionId, Model model){
+		// save quizId to variable...
+		Question question = questionRepository.findById(questionId).orElseThrow();
+		Integer quizId = question.getQuiz().getQuizId();
+		// ...before deleting the question
+		questionRepository.deleteById(questionId);
+		return "redirect:/quiz/" + quizId + "/questions";
+	}
 }

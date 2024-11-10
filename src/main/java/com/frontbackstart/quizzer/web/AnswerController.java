@@ -37,9 +37,25 @@ public class AnswerController{
         return "addanswer";
     }
 
-	@PostMapping("/addanswer")
+	@PostMapping("/saveanswer")
     public String saveAnswer(@ModelAttribute("answer") Answer answer) {
         answerRepository.save(answer);
         return "redirect:/question/" + answer.getQuestion().getQuestionId() + "/answers";
     }
+
+    @GetMapping("/editanswer/{answerId}")
+    public String editAnswer(@PathVariable("answerId") Integer answerId, Model model){
+    	model.addAttribute("question", answerRepository.findById(answerId).orElseThrow());
+    	return "editanswer";
+    }
+
+    @GetMapping("/deleteanswer/{answerId}")
+	public String deleteAnswer(@PathVariable("answerId") Integer answerId, Model model){
+		// save questionId to variable...
+		Answer answer = answerRepository.findById(answerId).orElseThrow();
+		Integer questionId = answer.getQuestion().getQuestionId();
+		// ...before deleting the answer
+		answerRepository.deleteById(answerId);
+		return "redirect:/quiz/" + questionId + "/questions";
+	}
 }

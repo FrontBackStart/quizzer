@@ -44,4 +44,9 @@ public class QuizController{
 		model.addAttribute("quiz", quizRepository.findById(quizId).orElseThrow());
 		return "editquiz";
 	}
+	@GetMapping("/deletequiz/{quizId}")
+	public String deleteQuiz(@PathVariable("quizId") Integer quizId, Model model){
+		quizRepository.deleteById(quizId);
+		return "redirect:/quizzes";
+	}
 }
