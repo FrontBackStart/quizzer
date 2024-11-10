@@ -31,6 +31,12 @@ public class QuizzerApplication {
 				log.info("Create Quizzes");
 				Quiz quiz1 = new Quiz("Capital cities", "Quiz about capital cities", true, added);
 				quizRepo.save(quiz1);
+				LocalDateTime quiz2Added = LocalDateTime.of(2022, 11, 9, 9, 30);
+				Quiz quiz2 = new Quiz("Famous countries", "Quiz about countries", true, quiz2Added);
+				quizRepo.save(quiz2);
+				LocalDateTime quiz3Added = LocalDateTime.of(2023, 11, 9, 9, 30);  
+				Quiz quiz3 = new Quiz("Planets", "Quiz about planets", true, quiz3Added);
+				quizRepo.save(quiz3);
 
 				log.info("Create Questions");
 				Question question1 = new Question(quiz1, "What is the capital of Finland?", "Easy");

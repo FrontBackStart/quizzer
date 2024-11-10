@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.domain.Sort;
 //import java.util.List;
 @Controller
 public class QuizController{
@@ -25,7 +26,7 @@ public class QuizController{
 	@GetMapping("/quizzes")
 	public String getQuizzes(Model model){
 		//List<Answer> answers = answerRepository.findAll();
-		model.addAttribute("quizzes", quizRepository.findAll());
+		model.addAttribute("quizzes", quizRepository.findAll(Sort.by(Sort.Order.desc("created"))));
 		return "quizzes";
 	}
 	@GetMapping("/addquiz")
