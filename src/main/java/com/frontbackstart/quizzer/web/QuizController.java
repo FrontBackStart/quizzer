@@ -40,6 +40,12 @@ public class QuizController{
 		quizRepository.save(quiz);
 		return "redirect:/quizzes";
 	}
+	@PostMapping("/addquestions")
+	public String saveQuizAndSomething(Quiz quiz){
+		quiz.setCreated(LocalDateTime.now());
+		quizRepository.save(quiz);
+		return "redirect:/quizzes/" + quiz.getQuizId() + "/addquestion";
+	}
 	@GetMapping("/editquiz/{quizId}")
 	public String editQuiz(@PathVariable("quizId") Integer quizId, Model model){
 		model.addAttribute("quiz", quizRepository.findById(quizId).orElseThrow());

@@ -29,17 +29,21 @@ public class QuestionController {
         return "questions";
     }
 
-    @GetMapping("/addquestion")
-    public String addQuestion(Model model) {
+    @GetMapping("/quizzes/{quizId}/addquestion")
+    public String addQuestion(@PathVariable Integer quizId, Model model) {
+    	model.addAttribute("quiz", quizRepository.findById(quizId));
         model.addAttribute("question", new Question());
-        model.addAttribute("quizzes", quizRepository.findAll());
+        //TODO: add difficulties hard, medium, easy
+        // pass them to template
+        //model.addAttribute("quizzes", quizRepository.findAll());
         return "addquestion";
     }
 
-    @PostMapping("/savequestion")
-    public String saveQuestion(@ModelAttribute("question") Question question) {
+    @PostMapping("/quizzes/{quizId}/savequestion")
+    public String saveQuestion(@PathVariable Quiz quizId, @ModelAttribute("question") Question question) {
+    	question.setQuiz(quizId);
         questionRepository.save(question);
-        return "redirect:/quiz/" + question.getQuiz().getQuizId() + "/questions";
+        return "redirect:/quizzes/{quizId}/addquestion";
     }
 
     @GetMapping("/editquestion/{questionId}")
