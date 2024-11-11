@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Quizzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
+</head>
+
+<body style="padding: 15px">
+    <div class="container">
+    	<!-- TODO: Quiz name here -->
+        <h1 class="mb-3">Add a question</h1>
+        <form th:object="${question}" th:action="@{savequestion}" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="questionText">Question</label>
+                <input class="form-control" type="text" id="questionText" th:field="*{questionText}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="difficulty">Difficulty</label>
+                <input class="form-control" type="text" id="difficulty" th:field="*{difficulty}"></input>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a class="btn btn-secondary " href=/quizzes>Cancel</a>
+        </form>
+        </div>
+        <!-- TODO: question list -->
+</body>
+
+</html>
