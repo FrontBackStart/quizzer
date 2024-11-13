@@ -1,6 +1,7 @@
 package com.frontbackstart.quizzer.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.frontbackstart.quizzer.domain.Question;
 import com.frontbackstart.quizzer.domain.Quiz;
+
 import com.frontbackstart.quizzer.repository.QuestionRepository;
 import com.frontbackstart.quizzer.repository.QuizRepository;
+
+import java.util.List;
 
 @Controller
 public class QuestionController {
@@ -20,6 +24,8 @@ public class QuestionController {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    
 
     @GetMapping("/quiz/{quizId}/questions")
     public String getQuestionsForQuiz(@PathVariable Integer quizId, Model model) {
@@ -32,9 +38,14 @@ public class QuestionController {
     @GetMapping("/quizzes/{quizId}/addquestion")
     public String addQuestion(@PathVariable Integer quizId, Model model) {
         String[] difficulties = {"Easy", "Medium", "Hard"};
-    	model.addAttribute("quiz", quizRepository.findById(quizId));
+    	//model.addAttribute("quiz", quizRepository.findById(quizId));
+        Quiz quiz = quizRepository.findById(quizId).orElseThrow(); //Added to pass the quiz name to the page
+        model.addAttribute("quiz", quiz); //Added to pass the quiz name to the page
+        List<Question> question = questionRepository.findByQuiz(quiz); //Added to pass the questions to page
+        model.addAttribute("questions", question); //Added to pass the questions to page
      	model.addAttribute("difficulties", difficulties);
         model.addAttribute("question", new Question());
+        model.addAttribute("quizzes", quizRepository.findAll(Sort.by(Sort.Order.desc("created"))));
         //model.addAttribute("quizzes", quizRepository.findAll());
         return "addquestion";
     }

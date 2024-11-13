@@ -9,7 +9,7 @@
 
 <body style="padding: 15px">
     <div class="container">
-    	<!-- TODO: Quiz name here -->
+    	<h1 class="mb-3" th:text="${quiz.name}">Quiz Name</h1>
         <h1 class="mb-3">Add a question</h1>
         <form th:object="${question}" th:action="@{savequestion}" method="post">
             <div class="mb-3">
@@ -18,13 +18,28 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="difficulty">Difficulty</label>
-                <input class="form-control" type="text" id="difficulty" th:field="*{difficulty}"></input>
+                <select class="form-control" id="difficulty" th:field="*{difficulty}">
+                    <option th:each="difficulty : ${difficulties}" th:value="${difficulty}" th:text="${difficulty}">Difficulty</option>
+                </select>
             </div>
             <input class="btn btn-primary" type="submit" value="Save" />
             <a class="btn btn-secondary " href=/quizzes>Cancel</a>
         </form>
         </div>
-        <!-- TODO: question list -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Question Text</th>
+                    <th>Difficulty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="question : ${questions}">
+                    <td th:text="${question.questionText}">Quiz Name</td>
+                    <td th:text="${question.difficulty}">Quiz Name</td>
+                </tr>
+            </tbody>
+        </table>
 </body>
 
 </html>

@@ -11,3 +11,4 @@ import java.util.List;
 public interface QuizRepository extends JpaRepository<Quiz, Integer>{
     List<Quiz> findAll(Sort sort);
 }
+
