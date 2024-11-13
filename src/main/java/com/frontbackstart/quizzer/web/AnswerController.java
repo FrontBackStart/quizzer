@@ -52,7 +52,7 @@ public class AnswerController{
     public String saveAnswer(@PathVariable Question questionId, @ModelAttribute("answer") Answer answer) {
         answer.setQuestion(questionId);
         answerRepository.save(answer);
-        return "redirect:/question/1/addanswer";
+        return "redirect:/question/{questionId}/addanswer";
 
     }
 
