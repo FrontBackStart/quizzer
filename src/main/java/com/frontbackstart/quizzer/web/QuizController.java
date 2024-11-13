@@ -34,12 +34,14 @@ public class QuizController{
 		model.addAttribute("quiz", new Quiz());
 		return "addquiz";
 	}
+	//save quiz without adding questions
 	@PostMapping("/savequiz")
 	public String saveQuiz(Quiz quiz){
 		quiz.setCreated(LocalDateTime.now());
 		quizRepository.save(quiz);
 		return "redirect:/quizzes";
 	}
+	//save quiz and start adding questions
 	@PostMapping("/addquestions")
 	public String saveQuizAndSomething(Quiz quiz){
 		quiz.setCreated(LocalDateTime.now());

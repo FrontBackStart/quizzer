@@ -31,10 +31,10 @@ public class QuestionController {
 
     @GetMapping("/quizzes/{quizId}/addquestion")
     public String addQuestion(@PathVariable Integer quizId, Model model) {
+        String[] difficulties = {"Easy", "Medium", "Hard"};
     	model.addAttribute("quiz", quizRepository.findById(quizId));
+     	model.addAttribute("difficulties", difficulties);
         model.addAttribute("question", new Question());
-        //TODO: add difficulties hard, medium, easy
-        // pass them to template
         //model.addAttribute("quizzes", quizRepository.findAll());
         return "addquestion";
     }
