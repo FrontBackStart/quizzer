@@ -5,6 +5,8 @@ import com.frontbackstart.quizzer.domain.Question;
 import com.frontbackstart.quizzer.repository.AnswerRepository;
 import com.frontbackstart.quizzer.repository.QuestionRepository;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-//import java.util.List;
+
+
+import java.util.List;
+
 @Controller
 public class AnswerController{
 	@Autowired
@@ -21,6 +26,7 @@ public class AnswerController{
 
 	@Autowired
 	private QuestionRepository questionRepository;
+
 
 	@GetMapping("/question/{questionId}/answers")
     public String getAnswersForQuestion(@PathVariable Integer questionId, Model model) {
@@ -30,17 +36,24 @@ public class AnswerController{
         return "answers";
     }
 
-	@GetMapping("/addanswer")
-    public String addAnswer(Model model) {
+	@GetMapping("/question/{questionId}/addanswer")
+    public String addAnswer(@PathVariable Integer questionId, Model model) {
         model.addAttribute("answer", new Answer());
-        model.addAttribute("questions", questionRepository.findAll());
+        // Fetch the Question object using the questionId
+        Question question = questionRepository.findById(questionId).orElseThrow();
+        // Pass the Question object to the model
+        model.addAttribute("question", question);
+        List<Answer> answer = answerRepository.findByQuestion(question); //Added to pass the questions to page
+        model.addAttribute("answers", answer); //Added to pass the questions to page
         return "addanswer";
     }
 
-	@PostMapping("/saveanswer")
-    public String saveAnswer(@ModelAttribute("answer") Answer answer) {
+	@PostMapping("/question/{questionId}/saveanswer")
+    public String saveAnswer(@PathVariable Question questionId, @ModelAttribute("answer") Answer answer) {
+        answer.setQuestion(questionId);
         answerRepository.save(answer);
-        return "redirect:/question/" + answer.getQuestion().getQuestionId() + "/answers";
+        return "redirect:/question/1/addanswer";
+
     }
 
     @GetMapping("/editanswer/{answerId}")
@@ -52,10 +65,10 @@ public class AnswerController{
     @GetMapping("/deleteanswer/{answerId}")
 	public String deleteAnswer(@PathVariable("answerId") Integer answerId, Model model){
 		// save questionId to variable...
-		Answer answer = answerRepository.findById(answerId).orElseThrow();
-		Integer questionId = answer.getQuestion().getQuestionId();
+		//Answer answer = answerRepository.findById(answerId).orElseThrow();
+		//Integer questionId = answer.getQuestion().getQuestionId();
 		// ...before deleting the answer
 		answerRepository.deleteById(answerId);
-		return "redirect:/quiz/" + questionId + "/questions";
+		return "redirect:/question/1/addanswer";
 	}
 }

@@ -31,12 +31,19 @@
                 <tr>
                     <th>Question Text</th>
                     <th>Difficulty</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="question : ${questions}">
                     <td th:text="${question.questionText}">Quiz Name</td>
                     <td th:text="${question.difficulty}">Quiz Name</td>
+                    <td>
+                            <form th:action="@{/deletequestion/{questionId}(questionId=${question.questionId})}" method="get" style="display:inline;">
+                                <input class="btn btn-danger btn-sm" type="submit" value="Delete" 
+                                    onclick="return confirm('Are you sure you want to delete this question?');" />
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

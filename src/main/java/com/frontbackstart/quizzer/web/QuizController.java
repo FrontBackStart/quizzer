@@ -31,6 +31,7 @@ public class QuizController{
 	}
 	@GetMapping("/addquiz")
 	public String addQuiz(Model model){
+		model.addAttribute("quizzes", quizRepository.findAll(Sort.by(Sort.Order.desc("created"))));
 		model.addAttribute("quiz", new Quiz());
 		return "addquiz";
 	}
@@ -39,7 +40,7 @@ public class QuizController{
 	public String saveQuiz(Quiz quiz){
 		quiz.setCreated(LocalDateTime.now());
 		quizRepository.save(quiz);
-		return "redirect:/quizzes";
+		return "redirect:/addquiz";
 	}
 	//save quiz and start adding questions
 	@PostMapping("/addquestions")
@@ -56,6 +57,6 @@ public class QuizController{
 	@GetMapping("/deletequiz/{quizId}")
 	public String deleteQuiz(@PathVariable("quizId") Integer quizId, Model model){
 		quizRepository.deleteById(quizId);
-		return "redirect:/quizzes";
+		return "redirect:/addquiz";
 	}
 }

@@ -19,6 +19,8 @@ import java.util.List;
 
 @Controller
 public class QuestionController {
+
+    
     @Autowired
     private QuestionRepository questionRepository;
 
@@ -70,6 +72,6 @@ public class QuestionController {
 		Integer quizId = question.getQuiz().getQuizId();
 		// ...before deleting the question
 		questionRepository.deleteById(questionId);
-		return "redirect:/quiz/" + quizId + "/questions";
+		return "redirect:/quizzes/" + quizId + "/addquestion";
 	}
 }
