@@ -24,9 +24,14 @@
                     <td th:text="${quiz.description}">Quiz Description</td>
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
+                    <td>
+                        <a th:href="@{/editquiz/{quizId}(quizId=${quiz.quizId})}"><button>Edit</button></a>
+                    </td>
+    
                 </tr>
             </tbody>
         </table>
+        <a class="btn btn-primary " href=/addquiz>Add a quiz</a>
     </div>
 </body>
 </html>
