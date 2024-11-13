@@ -2,6 +2,8 @@ package com.frontbackstart.quizzer.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class Question{
 
 	private String difficulty;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
 
