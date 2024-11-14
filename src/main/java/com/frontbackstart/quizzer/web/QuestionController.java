@@ -34,7 +34,7 @@ public class QuestionController {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow();
         model.addAttribute("quiz", quiz);
         model.addAttribute("questions", quiz.getQuestions());
-        return "quizinfo";
+        return "questions";
     }
 
     @GetMapping("/quizzes/{quizId}/addquestion")
