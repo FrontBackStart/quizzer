@@ -28,7 +28,7 @@ public class AnswerController{
 	private QuestionRepository questionRepository;
 
 
-	@GetMapping("/question/{questionId}/answers")
+	@GetMapping("/questions/{questionId}")
     public String getAnswersForQuestion(@PathVariable Integer questionId, Model model) {
         Question question = questionRepository.findById(questionId).orElseThrow();
         model.addAttribute("question", question);
@@ -36,7 +36,7 @@ public class AnswerController{
         return "answers";
     }
 
-	@GetMapping("/question/{questionId}/addanswer")
+	@GetMapping("/questions/{questionId}/addanswer")
     public String addAnswer(@PathVariable Integer questionId, Model model) {
         model.addAttribute("answer", new Answer());
         // Fetch the Question object using the questionId
@@ -48,27 +48,27 @@ public class AnswerController{
         return "addanswer";
     }
 
-	@PostMapping("/question/{questionId}/saveanswer")
+	@PostMapping("/questions/{questionId}/saveanswer")
     public String saveAnswer(@PathVariable Question questionId, @ModelAttribute("answer") Answer answer) {
         answer.setQuestion(questionId);
         answerRepository.save(answer);
-        return "redirect:/question/{questionId}/addanswer";
+        return "redirect:/questions/{questionId}/addanswer";
 
     }
 
-    @GetMapping("/editanswer/{answerId}")
-    public String editAnswer(@PathVariable("answerId") Integer answerId, Model model){
+    @GetMapping("/questions/{questionId}/editanswer/{answerId}")
+    public String editAnswer(@PathVariable("questionId") Integer questionId, @PathVariable("answerId") Integer answerId, Model model){
     	model.addAttribute("question", answerRepository.findById(answerId).orElseThrow());
     	return "editanswer";
     }
 
-    @GetMapping("/deleteanswer/{answerId}")
-	public String deleteAnswer(@PathVariable("answerId") Integer answerId, Model model){
+    @GetMapping("/questions/{questionId}/deleteanswer/{answerId}")
+	public String deleteAnswer(@PathVariable("questionId") Integer questionId, @PathVariable("answerId") Integer answerId, Model model){
 		// save questionId to variable...
 		//Answer answer = answerRepository.findById(answerId).orElseThrow();
 		//Integer questionId = answer.getQuestion().getQuestionId();
 		// ...before deleting the answer
 		answerRepository.deleteById(answerId);
-		return "redirect:/question/1/addanswer";
+		return "redirect:/questions/{questionId}";
 	}
 }

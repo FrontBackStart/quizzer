@@ -29,12 +29,12 @@ public class QuestionController {
 
     private String[] difficulties = {"Easy", "Medium", "Hard"};
 
-    @GetMapping("/quiz/{quizId}/questions")
+    @GetMapping("/quizzes/{quizId}")
     public String getQuestionsForQuiz(@PathVariable Integer quizId, Model model) {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow();
         model.addAttribute("quiz", quiz);
         model.addAttribute("questions", quiz.getQuestions());
-        return "questions";
+        return "quizinfo";
     }
 
     @GetMapping("/quizzes/{quizId}/addquestion")
@@ -58,18 +58,17 @@ public class QuestionController {
         return "redirect:/quizzes/{quizId}/addquestion";
     }
 
-    @GetMapping("/editquestion/{questionId}")
-    public String editQuestion(@PathVariable("questionId") Integer questionId, Model model){
+    @GetMapping("/quizzes/{quizId}/editquestion/{questionId}")
+    public String editQuestion(@PathVariable("quizId") Integer quizId, @PathVariable("questionId") Integer questionId, Model model){
     	model.addAttribute("difficulties", difficulties);
     	model.addAttribute("question", questionRepository.findById(questionId).orElseThrow());
     	return "editquestion";
     }
 
-    @GetMapping("/deletequestion/{questionId}")
-	public String deleteQuestion(@PathVariable("questionId") Integer questionId, Model model){
+    @GetMapping("/quizzes/{quizId}/deletequestion/{questionId}")
+	public String deleteQuestion(@PathVariable("quizId") Integer quizId, @PathVariable("questionId") Integer questionId, Model model){
 		// save quizId to variable...
-		Question question = questionRepository.findById(questionId).orElseThrow();
-		Integer quizId = question.getQuiz().getQuizId();
+		//Question question = questionRepository.findById(questionId).orElseThrow();
 		// ...before deleting the question
 		questionRepository.deleteById(questionId);
 		return "redirect:/quizzes/" + quizId + "/addquestion";
