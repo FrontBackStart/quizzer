@@ -39,8 +39,8 @@
                     <td th:text="${answer.answerText}">Quiz Name</td>
                     <td th:text="${answer.isRight ? 'Yes' : 'No'}">Is right</td>
                     <td>
-                        <form th:action="@{/deleteanswer/{answerId}(answerId=${answer.answerId})}" method="get" style="display:inline;">
-                            <input class="btn btn-danger btn-sm" type="submit" value="Delete" 
+                        <form th:action="@{deleteanswer/{answerId}(answerId=${answer.answerId})}" method="get" style="display:inline;">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Delete"
                                 onclick="return confirm('Are you sure you want to delete this answer?');" />
                     </form>
                 </td>

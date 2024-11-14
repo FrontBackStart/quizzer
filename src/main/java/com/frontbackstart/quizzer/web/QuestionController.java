@@ -55,7 +55,7 @@ public class QuestionController {
     public String saveQuestion(@PathVariable Quiz quizId, @ModelAttribute("question") Question question) {
     	question.setQuiz(quizId);
         questionRepository.save(question);
-        return "redirect:/quizzes/{quizId}/addquestion";
+        return "redirect:/questions/" + question.getQuestionId() + "/addanswer";
     }
 
     @GetMapping("/quizzes/{quizId}/editquestion/{questionId}")

@@ -10,7 +10,7 @@
 <body style="padding: 15px">
     <div class="container">
         <h1>Edit question</h1>
-            <form th:object="${question}" th:action="@{savequestion}" method="post">
+            <form th:object="${question}" th:action="@{/quizzes/{quizId}/savequestion(quizId=${quizId})}" method="post">
             <div>
                 <input type="hidden" th:field="*{questionId}" readonly="readonly">
             </div>
