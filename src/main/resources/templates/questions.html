@@ -1,1 +1,31 @@
-<!-- TODO: List questions of certain quiz (quizId) -->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Quizzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
+</head>
+
+<body style="padding: 15px">
+    <h1 class="mb-3" th:text="${quiz.name}">Quiz Name</h1>
+    <div>
+        <h2>Questions</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Question Text</th>
+                    <th>Difficulty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="question : ${questions}">
+                    <td th:text="${question.questionText}">Question Text</td>
+                    <td th:text="${question.difficulty}">Question Difficulty</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,1 +1,31 @@
-<!-- TODO: List answers of certain question (questionId) -->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Quizzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
+</head>
+
+<body style="padding: 15px">
+    <h1 class="mb-3" th:text="${question.questionText}">Quiz Name</h1>
+    <div>
+        <h2>Answers</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Question Text</th>
+                    <th>Difficulty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="answer : ${answers}">
+                    <td th:text="${answer.answerText}">Quiz Name</td>
+                    <td th:text="${answer.isRight ? 'Yes' : 'No'}">Is right</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
