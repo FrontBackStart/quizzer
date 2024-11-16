@@ -13,7 +13,7 @@
         <h1 class="mb-3">Add an answer</h1>
         <form th:object="${answer}" th:action="@{saveanswer}" method="post">
             <div class="mb-3">
-                <label class="form-label" for="answerText">Question</label>
+                <label class="form-label" for="answerText">Option</label>
                 <input class="form-control" type="text" id="answerText" th:field="*{answerText}">
             </div>
             <div class="mb-3">
@@ -38,6 +38,9 @@
                 <tr th:each="answer : ${answers}">
                     <td th:text="${answer.answerText}">Quiz Name</td>
                     <td th:text="${answer.isRight ? 'Yes' : 'No'}">Is right</td>
+                    <td>
+                        <a th:href="@{/questions/{questionId}/editanswer/{answerId}(questionId=${question.questionId}, answerId=${answer.answerId})}"><button>Edit</button></a>
+                    </td>
                     <td>
                         <form th:action="@{deleteanswer/{answerId}(answerId=${answer.answerId})}" method="get" style="display:inline;">
                             <input class="btn btn-danger btn-sm" type="submit" value="Delete"

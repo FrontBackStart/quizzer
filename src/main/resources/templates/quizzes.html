@@ -25,7 +25,16 @@
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
                     <td>
+                        <a th:href="@{/quizzes/{quizId}(quizId=${quiz.quizId})}">See questions</a>
+                    </td>
+                    <td>
                         <a th:href="@{/editquiz/{quizId}(quizId=${quiz.quizId})}"><button>Edit</button></a>
+                    </td>
+                    <td>
+                        <form th:action="@{/deletequiz/{quizId}(quizId=${quiz.quizId})}" method="get" style="display:inline;">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Delete"
+                                onclick="return confirm('Are you sure you want to delete this quiz?');" />
+                        </form>
                     </td>
     
                 </tr>
