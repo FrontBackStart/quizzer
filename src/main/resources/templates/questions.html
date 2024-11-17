@@ -16,15 +16,20 @@
                 <tr>
                     <th>Question Text</th>
                     <th>Difficulty</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="question : ${questions}">
                     <td th:text="${question.questionText}">Question Text</td>
                     <td th:text="${question.difficulty}">Question Difficulty</td>
+                    <td>
+                        <a th:href="@{/questions/{quizId}(quizId=${quiz.quizId})}">See answers</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <a class="btn btn-secondary " href=/quizzes>Cancel</a>
     </div>
 </body>
 
