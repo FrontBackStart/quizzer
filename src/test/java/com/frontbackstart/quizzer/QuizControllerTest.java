@@ -96,7 +96,7 @@ public class QuizControllerTest {
         when(quizRepository.save(any(Quiz.class))).thenReturn(testQuiz);
 
 
-        String viewName = quizController.saveQuiz(testQuiz);
+        String viewName = quizController.saveQuizAndSomething(testQuiz);
 
         assertEquals("redirect:/quizzes", viewName);
         assertNotNull(testQuiz.getCreated());
