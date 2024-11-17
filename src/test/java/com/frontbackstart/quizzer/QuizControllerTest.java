@@ -1,183 +1,194 @@
 package com.frontbackstart.quizzer;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ui.Model;
-import org.springframework.validation.support.BindingAwareModelMap;
-
 import com.frontbackstart.quizzer.domain.Answer;
 import com.frontbackstart.quizzer.domain.Question;
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.AnswerRepository;
 import com.frontbackstart.quizzer.repository.QuestionRepository;
 import com.frontbackstart.quizzer.repository.QuizRepository;
-import com.frontbackstart.quizzer.web.AnswerController;
-import com.frontbackstart.quizzer.web.QuestionController;
-import com.frontbackstart.quizzer.web.QuizController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith(MockitoExtension.class)
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest
 public class QuizControllerTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
     private QuizRepository quizRepository;
 
-    @Mock
+    @MockBean
     private QuestionRepository questionRepository;
 
-    @Mock
+    @MockBean
     private AnswerRepository answerRepository;
 
-    @InjectMocks
-    private QuizController quizController;
-
-    @InjectMocks
-    private QuestionController questionController;
-
-    @InjectMocks
-    private AnswerController answerController;
-
-    private Model model;
-    private Quiz testQuiz;
-    private Question testQuestion;
-    private Answer testAnswer;
+    private Quiz quiz;
+    private Question question;
+    private Answer answer;
 
     @BeforeEach
     void setUp() {
-        model = new BindingAwareModelMap();
-        testQuiz = new Quiz("Test quiz", "Quiz for testing", true, LocalDateTime.now());
-        testQuestion = new Question(testQuiz, "Test question?", "Easy");
-        testAnswer = new Answer(testQuestion, "Test answer", true);
+        MockitoAnnotations.openMocks(this);
 
-        testQuiz.setQuestions(Arrays.asList(testQuestion));
-        testQuestion.setAnswers(Arrays.asList(testAnswer));
+        // Alustetaan testidata CommandLineRunnerin mukaan
+        LocalDateTime added = LocalDateTime.of(2021, 11, 7, 15, 15);
+        quiz = new Quiz("Capital cities", "Quiz about capital cities", true, added);
+        quiz.setQuizId(10);
+
+        question = new Question(quiz, "What is the capital of Finland?", "Easy");
+        question.setQuestionId(10);
+
+        answer = new Answer(question, "Helsinki", true);
+        answer.setAnswerId(10);
     }
 
-
-    @SuppressWarnings({ "null", "unchecked" })
+    // 1. Testi: Quizin lisääminen
     @Test
-    public void testGetQuizzes() {
+    void saveQuiz() throws Exception {
+        when(quizRepository.save(any(Quiz.class))).thenReturn(quiz);
 
-        when(quizRepository.findAll()).thenReturn(Arrays.asList(testQuiz));
+        mockMvc.perform(post("/savequiz")
+                        .param("title", "Capital cities")
+                        .param("description", "Quiz about capital cities")
+                        .param("enabled", "true"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quizzes/10/addquestion"));
 
-        String viewName = quizController.getQuizzes(model);
-
-        assertEquals("quizzes", viewName);
-        assertNotNull(model.getAttribute("quizzes"));
-        List<Quiz> quizzes = (List<Quiz>) model.getAttribute("quizzes");
-        assertEquals(1, quizzes.size());
-        assertEquals(testQuiz.getQuizId(), quizzes.get(0).getQuizId());
+        verify(quizRepository, times(1)).save(any(Quiz.class));
     }
 
+    // 2. Testi: Listaa kaikki quizit
     @Test
-    public void testAddQuiz() {
+    void getQuizzes() throws Exception {
+        when(quizRepository.findAll()).thenReturn(List.of(quiz));
 
-        String viewName = quizController.addQuiz(model);
+        mockMvc.perform(get("/quizzes"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("quizzes"))
+                .andExpect(model().attributeExists("quizzes"));
 
-        assertEquals("addquiz", viewName);
-        assertNotNull(model.getAttribute("quiz"));
+        verify(quizRepository, times(1)).findAll();
     }
 
+    // 3. Testi: Kysymyksen lisääminen quizille
     @Test
-    public void testSaveQuiz() {
+    void saveQuestion() throws Exception {
+        when(quizRepository.findById(10)).thenReturn(Optional.of(quiz));
+        when(questionRepository.save(any(Question.class))).thenReturn(question);
 
-        when(quizRepository.save(any(Quiz.class))).thenReturn(testQuiz);
+        mockMvc.perform(post("/quizzes/10/savequestion")
+                        .param("text", "What is the capital of Finland?")
+                        .param("difficulty", "Easy"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/questions/10/addanswer"));
 
-
-        String viewName = quizController.saveQuiz(testQuiz);
-
-        assertEquals("redirect:/quizzes", viewName);
-        assertNotNull(testQuiz.getCreated());
+        verify(questionRepository, times(1)).save(any(Question.class));
     }
 
-
+    // 4. Testi: Vastausvaihtoehdon lisääminen kysymykseen
     @Test
-    public void testGetQuestionsForQuiz() {
+    void saveAnswer() throws Exception {
+        when(questionRepository.findById(10)).thenReturn(Optional.of(question));
+        when(answerRepository.save(any(Answer.class))).thenReturn(answer);
 
-        when(quizRepository.findById(1)).thenReturn(Optional.of(testQuiz));
+        mockMvc.perform(post("/questions/10/saveanswer")
+                        .param("answerText", "Helsinki")
+                        .param("isCorrect", "true"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/questions/10/addanswer"));
 
-        String viewName = questionController.getQuestionsForQuiz(1, model);
-
-        assertEquals("questions", viewName);
-        assertNotNull(model.getAttribute("questions"));
-        assertNotNull(model.getAttribute("quiz"));
-        List<Question> questions = testQuiz.getQuestions();
-        assertEquals(1, questions.size());
-        assertEquals(testQuestion.getQuestionId(), questions.get(0).getQuestionId());
+        verify(answerRepository, times(1)).save(any(Answer.class));
     }
 
-    // TODO: later
-    /*
+    // 5. Testi: Näytä kysymykset quizille
     @Test
-    public void testAddQuestion() {
+    void getQuestionsForQuiz() throws Exception {
+        when(quizRepository.findById(10)).thenReturn(Optional.of(quiz));
+        when(questionRepository.findByQuiz(quiz)).thenReturn(List.of(question));
 
-        when(quizRepository.findAll()).thenReturn(Arrays.asList(testQuiz));
+        mockMvc.perform(get("/quizzes/10"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("questions"))
+                .andExpect(model().attributeExists("questions"));
 
-        String viewName = questionController.addQuestion(model);
-
-        assertEquals("addquestion", viewName);
-        assertNotNull(model.getAttribute("question"));
-        assertNotNull(model.getAttribute("quizzes"));
+        verify(questionRepository, times(1)).findByQuiz(quiz);
     }
 
+    // 6. Testi: Näytä vastausvaihtoehdot kysymykselle
     @Test
-    public void testSaveQuestion() {
+    void getAnswersForQuestion() throws Exception {
+        when(questionRepository.findById(10)).thenReturn(Optional.of(question));
+        when(answerRepository.findByQuestion(question)).thenReturn(List.of(answer));
 
-        when(questionRepository.save(any(Question.class))).thenReturn(testQuestion);
+        mockMvc.perform(get("/questions/10"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("answers"))
+                .andExpect(model().attributeExists("answers"));
 
-        String viewName = questionController.saveQuestion(testQuestion);
-
-        assertEquals("redirect:/quiz/1/questions", viewName);
+        verify(answerRepository, times(1)).findByQuestion(question);
     }
 
-
+    // 7. Testi: Quizin muokkaaminen
     @Test
-    public void testGetAnswersForQuestion() {
+    void editQuiz() throws Exception {
+        when(quizRepository.findById(10)).thenReturn(Optional.of(quiz));
 
-        when(questionRepository.findById(1)).thenReturn(Optional.of(testQuestion));
+        mockMvc.perform(get("/editquiz/10"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("editquiz"))
+                .andExpect(model().attributeExists("quiz"));
 
-        String viewName = answerController.getAnswersForQuestion(1, model);
-
-        assertEquals("answers", viewName);
-        assertNotNull(model.getAttribute("answers"));
-        assertNotNull(model.getAttribute("question"));
-        List<Answer> answers = testQuestion.getAnswers();
-        assertEquals(1, answers.size());
-        assertEquals(testAnswer.getAnswerId(), answers.get(0).getAnswerId());
+        verify(quizRepository, times(1)).findById(10);
     }
 
+    // 8. Testi: Quizin poistaminen
     @Test
-    public void testAddAnswer() {
+    void deleteQuiz() throws Exception {
+        doNothing().when(quizRepository).deleteById(10);
 
-        when(questionRepository.findAll()).thenReturn(Arrays.asList(testQuestion));
+        mockMvc.perform(get("/deletequiz/10"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/addquiz"));
 
-        String viewName = answerController.addAnswer(model);
-
-        assertEquals("addanswer", viewName);
-        assertNotNull(model.getAttribute("answer"));
-        assertNotNull(model.getAttribute("questions"));
+        verify(quizRepository, times(1)).deleteById(10);
     }
 
+    // 9. Testi: Kysymyksen poistaminen quizilta
     @Test
-    public void testSaveAnswer() {
+    void deleteQuestion() throws Exception {
+        doNothing().when(questionRepository).deleteById(10);
 
-        when(answerRepository.save(any(Answer.class))).thenReturn(testAnswer);
+        mockMvc.perform(get("/quizzes/10/deletequestion/10"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quizzes/10/addquestion"));
 
-        String viewName = answerController.saveAnswer(testAnswer);
-
-        assertEquals("redirect:/question/1/answers", viewName);
+        verify(questionRepository, times(1)).deleteById(10);
     }
-*/
+
+    // 10. Testi: Vastausvaihtoehdon poistaminen kysymykseltä
+    @Test
+    void deleteAnswer() throws Exception {
+        doNothing().when(answerRepository).deleteById(10);
+
+        mockMvc.perform(get("/questions/10/deleteanswer/10"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/questions/10"));
+
+        verify(answerRepository, times(1)).deleteById(10);
+    }
 }
