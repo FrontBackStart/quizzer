@@ -24,3 +24,23 @@ This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Softwar
 
 - A modern web browser (Google Chrome, Firefox, Safari, etc.)
 - An active internet connection
+
+# Developer Guide
+
+### Prerequisites
+
+- Java 17 or higher
+- Git
+- Internet connection
+
+**Clone Repository.** Navigate in terminal/command line to a directory or a folder where you wish to place the source code. Use git to clone the repository
+
+    $ git clone https://github.com/FrontBackStart/quizzer.git
+
+**Start Development Server.** Navigate to a directory/folder named `quizzer`. Compile and run the application using Maven.
+
+    $ ./mvnw spring-boot:run
+
+**Open In Browser.** Type the below url to access app.
+
+    localhost:8080

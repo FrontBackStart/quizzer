@@ -58,7 +58,7 @@ public class AnswerController{
 
     @GetMapping("/questions/{questionId}/editanswer/{answerId}")
     public String editAnswer(@PathVariable("questionId") Integer questionId, @PathVariable("answerId") Integer answerId, Model model){
-    	model.addAttribute("question", answerRepository.findById(answerId).orElseThrow());
+    	model.addAttribute("answer", answerRepository.findById(answerId).orElseThrow());
     	return "editanswer";
     }
 
