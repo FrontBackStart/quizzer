@@ -19,6 +19,12 @@
                 <label class="form-label" for="description">Description</label>
                 <textarea class="form-control" rows="2" id="description" th:field="*{description}"></textarea>
             </div>
+            <div class="mb-3"></div>
+                <label class="form-label" for="category">Category</label>
+                <select class="form-control" id="category" th:field="*{category}">
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">Category</option>
+                </select>
+            </div>
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" id="published" th:field="*{published}">
                 <label class="form-check-label" for="published">Published</label>
@@ -31,6 +37,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Category</th>
                     <th>Published</th>
                     <th>Created Date</th>
                     <th></th>
@@ -40,6 +47,7 @@
                 <tr th:each="quiz : ${quizzes}">
                     <td th:text="${quiz.name}">Quiz Name</td>
                     <td th:text="${quiz.description}">Quiz Description</td>
+                    <td th:text="${quiz.category}">Quiz Category</td>
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
                     <td>
