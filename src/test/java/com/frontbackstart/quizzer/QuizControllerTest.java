@@ -65,7 +65,7 @@ public class QuizControllerTest {
         mockMvc.perform(post("/savequiz")
                         .param("title", "Capital cities")
                         .param("description", "Quiz about capital cities")
-                        .param("enabled", "true"))
+                        .param("published", "true"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/quizzes/10/addquestion"));
 

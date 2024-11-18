@@ -49,6 +49,6 @@ public class QuizController{
 	@GetMapping("/deletequiz/{quizId}")
 	public String deleteQuiz(@PathVariable("quizId") Integer quizId, Model model){
 		quizRepository.deleteById(quizId);
-		return "redirect:/addquiz";
+		return "redirect:/quizzes";
 	}
 }
