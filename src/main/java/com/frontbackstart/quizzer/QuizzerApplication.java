@@ -15,6 +15,8 @@ import com.frontbackstart.quizzer.repository.QuestionRepository;
 import com.frontbackstart.quizzer.domain.Question;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 import com.frontbackstart.quizzer.domain.Quiz;
+import com.frontbackstart.quizzer.repository.CategoryRepository;
+import com.frontbackstart.quizzer.domain.Category;
 
 @SpringBootApplication
 public class QuizzerApplication {
@@ -26,21 +28,26 @@ public class QuizzerApplication {
 	}
 
 	@Bean
-		public CommandLineRunner testDataInitializer(AnswerRepository answerRepo, QuestionRepository questionRepo, QuizRepository quizRepo) {
+		public CommandLineRunner testDataInitializer(CategoryRepository categoryRepo, AnswerRepository answerRepo, QuestionRepository questionRepo, QuizRepository quizRepo) {
 			LocalDateTime added = LocalDateTime.of(2021, 11, 07, 15, 15);
 			return (args) -> {
 				List<Quiz> quizzes = quizRepo.findAll();
 				if (quizzes.isEmpty()){
 					log.info("QuizRepo empty");
 
+					log.info("Create Category");
+
+					Category category1 = new Category("Maantieto", "Mantsan kysymyksiä");
+					categoryRepo.save(category1);
+
 					log.info("Create Quizzes");
-					Quiz quiz1 = new Quiz("Capital cities", "Quiz about capital cities", true, added);
+					Quiz quiz1 = new Quiz(category1, "Capital cities", "Quiz about capital cities", true, added);
 					quizRepo.save(quiz1);
 					LocalDateTime quiz2Added = LocalDateTime.of(2022, 11, 9, 9, 30);
-					Quiz quiz2 = new Quiz("Famous countries", "Quiz about countries", true, quiz2Added);
+					Quiz quiz2 = new Quiz(category1, "Famous countries", "Quiz about countries", true, quiz2Added);
 					quizRepo.save(quiz2);
 					LocalDateTime quiz3Added = LocalDateTime.of(2023, 11, 9, 9, 30);
-					Quiz quiz3 = new Quiz("Planets", "Quiz about planets", true, quiz3Added);
+					Quiz quiz3 = new Quiz(category1, "Planets", "Quiz about planets", true, quiz3Added);
 					quizRepo.save(quiz3);
 
 					log.info("Create Questions");

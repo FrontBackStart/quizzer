@@ -13,6 +13,9 @@ public class Quiz{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer quizId;
 
+	@ManyToOne
+	private Category category;
+
 	private String name;
 
 	private String description;
@@ -29,7 +32,8 @@ public class Quiz{
 		super();
 	}
 
-	public Quiz(String name, String description, Boolean published, LocalDateTime created){
+	public Quiz(Category category, String name, String description, Boolean published, LocalDateTime created){
+		this.category = category;
 		this.name = name;
 		this.description = description;
 		this.published = published;
@@ -42,6 +46,14 @@ public class Quiz{
 
 	public void setQuizId(Integer quizId) {
 		this.quizId = quizId;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getName() {
