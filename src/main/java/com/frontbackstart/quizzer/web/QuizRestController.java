@@ -3,6 +3,7 @@ package com.frontbackstart.quizzer.web;
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -22,6 +24,13 @@ public class QuizRestController{
 
 	@GetMapping("/quizzes")
 	public List<Quiz> getQuizzes(){
-		return quizRepository.findAll();
+		List<Quiz> quizzes = quizRepository.findAll(Sort.by(Sort.Order.desc("created")));
+		ArrayList<Quiz> publishedQuizzes = new ArrayList<Quiz>();
+		for (Quiz quiz : quizzes){
+			if (quiz.getPublished() == true){
+				publishedQuizzes.add(quiz);
+			}
+		}
+		return publishedQuizzes;
 	}
 }
