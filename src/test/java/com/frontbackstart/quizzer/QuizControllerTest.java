@@ -40,14 +40,14 @@ public class QuizControllerTest {
     private Quiz quiz;
     private Question question;
     private Answer answer;
-/*
+/* 
     @BeforeEach
-    void setUp() {
+    void setUp() { 
         MockitoAnnotations.openMocks(this);
 
-        // Alustetaan testidata CommandLineRunnerin mukaan
+        // Alustetaan testidata CommandLineRunnerin mukaan 
         LocalDateTime added = LocalDateTime.of(2021, 11, 7, 15, 15);
-        quiz = new Quiz("Capital cities", "Quiz about capital cities", true, added);
+        quiz = new Quiz(, "Capital cities", "Quiz about capital cities", true, added);
         quiz.setQuizId(10);
 
         question = new Question(quiz, "What is the capital of Finland?", "Easy");

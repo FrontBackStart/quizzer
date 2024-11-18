@@ -71,4 +71,9 @@ public class Category{
 		this.quizzes = quizzes;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }
