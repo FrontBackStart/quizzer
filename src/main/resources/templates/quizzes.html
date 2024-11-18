@@ -23,7 +23,7 @@
                 <tr th:each="quiz : ${quizzes}">
                     <td th:text="${quiz.name}">Quiz Name</td>
                     <td th:text="${quiz.description}">Quiz Description</td>
-                    <td th:text="${quiz.category}">Quiz Category</td>
+                    <td th:text="${quiz.category.name}">Quiz Category</td>
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
                     <td>
@@ -38,7 +38,7 @@
                                 onclick="return confirm('Are you sure you want to delete this quiz?');" />
                         </form>
                     </td>
-    
+
                 </tr>
             </tbody>
         </table>
