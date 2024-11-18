@@ -55,6 +55,8 @@ public class QuizzerApplication {
 					questionRepo.save(question1);
 					Question question2 = new Question(quiz1, "What is the capital of Sweden?", "Easy");
 					questionRepo.save(question2);
+					Question question3 = new Question(quiz3, "How many planets are there in our solar system?", "Medium");
+					questionRepo.save(question3);
 
 					log.info("Create Answers");
 					Answer ansA = new Answer(question1, "New York", false);
