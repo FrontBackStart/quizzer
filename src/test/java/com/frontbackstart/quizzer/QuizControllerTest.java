@@ -40,7 +40,7 @@ public class QuizControllerTest {
     private Quiz quiz;
     private Question question;
     private Answer answer;
-
+/*
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -56,7 +56,7 @@ public class QuizControllerTest {
         answer = new Answer(question, "Helsinki", true);
         answer.setAnswerId(10);
     }
-
+*/
     // 1. Testi: Quizin lisääminen
     @Test
     void saveQuiz() throws Exception {
