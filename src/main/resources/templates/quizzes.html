@@ -23,7 +23,7 @@
                 <tr th:each="quiz : ${quizzes}">
                     <td th:text="${quiz.name}">Quiz Name</td>
                     <td th:text="${quiz.description}">Quiz Description</td>
-                    <td th:text="${quiz.category.name}">Quiz Category</td>
+                    <td th:text="${quiz.category}">Quiz Category</td>
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
                     <td>
@@ -43,7 +43,7 @@
             </tbody>
         </table>
         <a class="btn btn-primary " href=/addquiz>Add a quiz</a>
-        <a class="btn btn-secondary " href=/addcategory>Add a category</a>
+        <a class="btn btn-secondary " href=/categories>See Categories</a>
     </div>
 </body>
 </html>

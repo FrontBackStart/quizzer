@@ -47,7 +47,7 @@ public class QuizzerApplication {
 					Quiz quiz2 = new Quiz(category1, "Famous countries", "Quiz about countries", true, quiz2Added);
 					quizRepo.save(quiz2);
 					LocalDateTime quiz3Added = LocalDateTime.of(2023, 11, 9, 9, 30);
-					Quiz quiz3 = new Quiz(category1, "Planets", "Quiz about planets", true, quiz3Added);
+					Quiz quiz3 = new Quiz(category1, "Planets", "Quiz about planets", false, quiz3Added);
 					quizRepo.save(quiz3);
 
 					log.info("Create Questions");
@@ -55,6 +55,8 @@ public class QuizzerApplication {
 					questionRepo.save(question1);
 					Question question2 = new Question(quiz1, "What is the capital of Sweden?", "Easy");
 					questionRepo.save(question2);
+					Question question3 = new Question(quiz3, "How many planets are there in our solar system?", "Medium");
+					questionRepo.save(question3);
 
 					log.info("Create Answers");
 					Answer ansA = new Answer(question1, "New York", false);

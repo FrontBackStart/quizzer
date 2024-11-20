@@ -2,6 +2,7 @@ package com.frontbackstart.quizzer.web;
 
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.QuizRepository;
+import com.frontbackstart.quizzer.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,9 @@ public class QuizController{
 	@Autowired
 	private QuizRepository quizRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@GetMapping("/")
 	public String getIndex(Model model){
 		return "redirect:quizzes";
@@ -33,6 +37,7 @@ public class QuizController{
 	public String addQuiz(Model model){
 		model.addAttribute("quizzes", quizRepository.findAll(Sort.by(Sort.Order.desc("created"))));
 		model.addAttribute("quiz", new Quiz());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "addquiz";
 	}
 	@PostMapping("/savequiz")
@@ -44,6 +49,7 @@ public class QuizController{
 	@GetMapping("/editquiz/{quizId}")
 	public String editQuiz(@PathVariable("quizId") Integer quizId, Model model){
 		model.addAttribute("quiz", quizRepository.findById(quizId).orElseThrow());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "editquiz";
 	}
 	@GetMapping("/deletequiz/{quizId}")

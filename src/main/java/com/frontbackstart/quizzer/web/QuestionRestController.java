@@ -1,7 +1,7 @@
 package com.frontbackstart.quizzer.web;
 
-import com.frontbackstart.quizzer.domain.Quiz;
-import com.frontbackstart.quizzer.repository.QuizRepository;
+import com.frontbackstart.quizzer.domain.Question;
+import com.frontbackstart.quizzer.repository.QuestionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +18,19 @@ import org.springframework.data.domain.Sort;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
-public class QuizRestController{
+public class QuestionRestController{
 	@Autowired
-	private QuizRepository quizRepository;
+	private QuestionRepository questionRepository;
 
-	@GetMapping("/quizzes")
-	public List<Quiz> getQuizzes(){
-		List<Quiz> quizzes = quizRepository.findAll(Sort.by(Sort.Order.desc("created")));
-		ArrayList<Quiz> publishedQuizzes = new ArrayList<Quiz>();
-		for (Quiz quiz : quizzes){
-			if (quiz.getPublished() == true){
-				publishedQuizzes.add(quiz);
+	@GetMapping("/questions")
+	public List<Question> getQuestions(){
+		List<Question> questions = questionRepository.findAll();
+		ArrayList<Question> publishedQuestions = new ArrayList<Question>();
+		for (Question question : questions){
+			if (question.getQuiz().getPublished() == true){
+				publishedQuestions.add(question);
 			}
 		}
-		return publishedQuizzes;
+		return publishedQuestions;
 	}
 }
