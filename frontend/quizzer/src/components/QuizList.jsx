@@ -9,8 +9,7 @@ function QuizList() {
     const [colDefs, setColDefs] = useState([
         { field: "name" },
         { field: "description" },
-        { field: "category.name" },
-        { field: "published" },
+        { field: "category.name", headerName: "Category" },
         { field: "created" },
     ])
 
