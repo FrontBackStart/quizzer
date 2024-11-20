@@ -1,29 +1,20 @@
-import { useState, useEffect } from "react";
-import "./App.css"
+import QuizList from './components/QuizList';
+import Container from '@mui/material/Container'
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 function App() {
-	const [quizzes, setQuizzes] = useState([]);
-
-	async function getQuizzes() {
-		const response = await fetch("http://localhost:8080/api/quizzes");
-		setQuizzes(await response.json());
-	};
-
-	useEffect( () => {
-		getQuizzes();
-	}, []);
-
-  return (
-    <div>
-    	<ol>
-				{quizzes.map((quiz) => {
-					return (
-						<li key={quiz.quizId}>{quiz.name}</li>
-					)
-				})}
-     </ol>
-    </div>
-  )
+	return (
+		<Container maxWidth="xl">
+			<AppBar position='static'>
+				<Toolbar>
+					<Typography variant="h6">Quizzer</Typography>
+				</Toolbar>
+			</AppBar>
+			<QuizList />	
+		</Container>
+	)
 }
 
 export default App
