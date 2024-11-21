@@ -5,15 +5,13 @@ import com.frontbackstart.quizzer.repository.QuestionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Sort;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -33,4 +31,24 @@ public class QuestionRestController{
 		}
 		return publishedQuestions;
 	}
+
+	 @GetMapping("/questions/{questionId}")
+    public Map<String, Object> getQuestionById(@PathVariable Integer questionId) {
+        // Etsii kysymyksen ID:n perusteella
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("Question with id " + questionId + " not found"));
+
+        // Varmistaa, että kysymys on julkaistun quizin osa
+        if (question.getQuiz() == null || !question.getQuiz().getPublished()) {
+            throw new RuntimeException("Question is not part of a published quiz");
+        }
+
+        // Palauttaa kysymyksen ja sen julkaistut vastausvaihtoehdot
+        return Map.of(
+                "questionId", question.getQuestionId(),
+                "text", question.getQuestionText(),
+				"difficulty", question.getDifficulty(),
+                "answers", question.getAnswers()
+        );
+    }
 }
