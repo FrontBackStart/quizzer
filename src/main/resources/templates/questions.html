@@ -24,11 +24,12 @@
                     <td th:text="${question.questionText}">Question Text</td>
                     <td th:text="${question.difficulty}">Question Difficulty</td>
                     <td>
-                        <a th:href="@{/questions/{questionId}(questionId=${question.questionId})}">See answers</a>
+                        <a class="btn btn-primary" th:href="@{/questions/{questionId}(questionId=${question.questionId})}">See answers</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <a class="btn btn-secondary " href=/quizzes>Add a question</a>
         <a class="btn btn-secondary " href=/quizzes>Cancel</a>
     </div>
 </body>

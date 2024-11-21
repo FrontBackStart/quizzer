@@ -17,6 +17,9 @@
                     <th>Category</th>
                     <th>Published</th>
                     <th>Created Date</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,10 +30,10 @@
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
                     <td>
-                        <a th:href="@{/quizzes/{quizId}(quizId=${quiz.quizId})}">See questions</a>
+                        <a class="btn btn-primary" th:href="@{/quizzes/{quizId}(quizId=${quiz.quizId})}">See questions</a>
                     </td>
                     <td>
-                        <a th:href="@{/editquiz/{quizId}(quizId=${quiz.quizId})}"><button>Edit</button></a>
+                        <a class="btn btn-success" th:href="@{/editquiz/{quizId}(quizId=${quiz.quizId})}">Edit</a>
                     </td>
                     <td>
                         <form th:action="@{/deletequiz/{quizId}(quizId=${quiz.quizId})}" method="get" style="display:inline;">

@@ -69,6 +69,6 @@ public class AnswerController{
 		//Integer questionId = answer.getQuestion().getQuestionId();
 		// ...before deleting the answer
 		answerRepository.deleteById(answerId);
-		return "redirect:/questions/{questionId}";
+		return "redirect:/questions/{questionId}/addanswer";
 	}
 }
