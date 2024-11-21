@@ -1,18 +1,19 @@
 import QuizList from './components/QuizList';
+import Navbar from './components/Navbar'
+import CategoryList from './components/CategoryList';
 import Container from '@mui/material/Container'
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { Route, Routes } from 'react-router-dom';
+
 
 function App() {
 	return (
 		<Container maxWidth="xl">
-			<AppBar position='static'>
-				<Toolbar>
-					<Typography variant="h6">Quizzer</Typography>
-				</Toolbar>
-			</AppBar>
-			<QuizList />	
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<QuizList />} />
+				<Route path="/quizzes" element={<QuizList />} />
+				<Route path="/categories" element={<CategoryList />} />
+			</Routes>
 		</Container>
 	)
 }

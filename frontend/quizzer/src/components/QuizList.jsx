@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import Typography from '@mui/material/Typography';
 
 function QuizList() {
     const [quizzes, setQuizzes] = useState([]);
@@ -23,6 +24,8 @@ function QuizList() {
     }, []);
 
     return (
+    <>
+    <Typography variant="h4">Quizzes</Typography>
         <div className='ag-theme-material' style={{ height: 500 }}>
             <AgGridReact
                 rowData={quizzes}
@@ -30,6 +33,7 @@ function QuizList() {
                 suppressCellFocus={true}
             />
         </div>
+    </>
     )
 }
 
