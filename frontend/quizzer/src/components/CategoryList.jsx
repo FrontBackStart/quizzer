@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 
 
+
 function CategoryList() {
 	const [categories, setCategories] = useState([]);
 
@@ -29,14 +30,14 @@ function CategoryList() {
 
 	return (
 		<>
-			<Typography variant="h4">Categories</Typography>
-			<div className='ag-theme-material' style={{ height: 500 }}>
-				<AgGridReact
-					rowData={categories}
-					gridOptions={gridOptions}
-					suppressCellFocus={true}
-				/>
-			</div>
+				<Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">Categories</Typography>
+				<div className='ag-theme-material' style={{ height: 500 }}>
+					<AgGridReact
+						rowData={categories}
+						gridOptions={gridOptions}
+						suppressCellFocus={true}
+					/>
+				</div>
 		</>
 	)
 }
