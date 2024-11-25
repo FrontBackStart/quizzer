@@ -3,18 +3,40 @@ import Typography from '@mui/material/Typography';
 import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-
-
+import { useNavigate } from "react-router-dom";
 
 function CategoryList() {
 	const [categories, setCategories] = useState([]);
+	const navigate = useNavigate();
+
 
 	const gridOptions = {
 		autoSizeStrategy: {
 			type: 'fitGridWidth',
 		},
 		columnDefs: [
-			{ field: "name", headerName: "Name", width: 100 },
+			{
+				field: "name",
+				headerName: "Category Name",
+				width: 100,
+				cellRenderer: (params) => {
+					const categoryId = params.data.categoryId;
+					return (
+						<button
+							style={{
+								backgroundColor: "transparent",
+								color: "blue",
+								border: "none",
+								textDecoration: "underline",
+								cursor: "pointer"
+							}}
+							onClick={() => navigate(`/categories/${categoryId}`)}
+						>
+							{params.value}
+						</button>
+					);
+				},
+			},
 			{ field: "description", headerName: "Description" }
 		]
 	}
@@ -30,14 +52,14 @@ function CategoryList() {
 
 	return (
 		<>
-				<Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">Categories</Typography>
-				<div className='ag-theme-material' style={{ height: 500 }}>
-					<AgGridReact
-						rowData={categories}
-						gridOptions={gridOptions}
-						suppressCellFocus={true}
-					/>
-				</div>
+			<Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">Categories</Typography>
+			<div className='ag-theme-material' style={{ height: 500 }}>
+				<AgGridReact
+					rowData={categories}
+					gridOptions={gridOptions}
+					suppressCellFocus={true}
+				/>
+			</div>
 		</>
 	)
 }
