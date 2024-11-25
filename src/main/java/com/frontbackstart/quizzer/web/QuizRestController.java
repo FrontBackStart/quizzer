@@ -58,6 +58,7 @@ public class QuizRestController{
             "name", quiz.getName(),
             "description", quiz.getDescription(),
             "published", quiz.getPublished(),
+            "created", quiz.getCreated(),
             "questions", questions,
             "questionCount", questions.size()
         );
