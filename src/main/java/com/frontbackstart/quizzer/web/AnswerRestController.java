@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,12 +29,18 @@ public class AnswerRestController{
 	private AnswerRepository answerRepository;
 	@Autowired
 	private QuestionRepository questionRepository;
+	@Autowired QuizRepository quizRepository;
 
-	@GetMapping("/answers/{questionId}")
-	public List<Answer> getAnswersToQuestion(@PathVariable Integer questionId){
-		Question question = questionRepository.findById(questionId)
-			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + questionId + " not found"));
-		List<Answer> answers = answerRepository.findByQuestion(question);
-		return answers;
+	@PostMapping("/answers/{questionId}")
+	public String submitAnswer(@PathVariable Integer questionId ){
+		// TODO:
+		// implement attribute totalAnswers for Question
+		// implement attribute totalRightAnswers for Question
+		// increment question's totalAnswers by 1
+		// check if submitted answer's ( = request body ) isRight value is True
+		// if True, increment totalRightAnswers by 1
+		// return "correct answer"
+		// else, return "wrong answer"
+		return "";
 	}
 }
