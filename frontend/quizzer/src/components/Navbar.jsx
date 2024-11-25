@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -16,8 +17,8 @@ function Navbar() {
           <MenuItem>
 	          <Typography
 		          variant="h6"
-		          component="a"
-							href="/quizzes"
+		          component={Link}
+							to="/quizzes"
 		          sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
 						>
 							Quizzes
@@ -26,8 +27,8 @@ function Navbar() {
           <MenuItem>
 	          <Typography
 		          variant="h6"
-		          component="a"
-							href="/categories"
+		          component={Link}
+							to="/categories"
 		          sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
 						>
 	          Categories
