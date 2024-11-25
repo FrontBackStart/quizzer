@@ -37,7 +37,14 @@ function QuizList() {
             },
             { field: "description", headerName: "Description" },
             { field: "category.name", headerName: "Category" },
-            { field: "created", headerName: "Created Date" },
+            {
+                field: "created",
+                headerName: "Created Date",
+                valueFormatter: (params) => {
+                    const date = new Date(params.value);
+                    return date.toLocaleDateString('de-DE');
+                },
+            }
         ]
     }
 

@@ -34,7 +34,11 @@ function QuestionList() {
                 {quizDetails && (
                     <>
                         <div>{quizDetails.description}</div>
-                        <div>Added on: {quizDetails.created} - Questions: {quizDetails.questionCount} - Category: {quizDetails?.category || "Loading..."}</div>
+                        <div>
+                            Added on: {quizDetails.created ? new Date(quizDetails.created).toLocaleDateString('de-DE') : "Loading..."} - 
+                            Questions: {quizDetails.questionCount} - 
+                            Category: {quizDetails?.category || "Loading..."}
+                        </div>
                     </>
                 )}
             </div>
