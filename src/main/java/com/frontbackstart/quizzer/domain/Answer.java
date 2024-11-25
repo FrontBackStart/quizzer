@@ -1,5 +1,7 @@
 package com.frontbackstart.quizzer.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Answer{
 
 	private String answerText;
 
+	@JsonIgnore
 	private Boolean isRight;
 
 	public Answer(){
