@@ -13,6 +13,7 @@ public class Question{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer questionId;
 
+	@JsonIgnore
 	@ManyToOne
 	private Quiz quiz;
 
@@ -20,7 +21,7 @@ public class Question{
 
 	private String difficulty;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
 

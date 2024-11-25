@@ -24,7 +24,7 @@ public class Quiz{
 
 	private LocalDateTime created;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions;
 

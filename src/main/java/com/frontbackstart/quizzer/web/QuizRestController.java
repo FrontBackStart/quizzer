@@ -2,6 +2,7 @@ package com.frontbackstart.quizzer.web;
 
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.domain.Question;
+import com.frontbackstart.quizzer.repository.AnswerRepository;
 import com.frontbackstart.quizzer.repository.QuestionRepository;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 
@@ -29,6 +30,9 @@ public class QuizRestController{
 	@Autowired
 	private QuestionRepository questionRepository;
 
+	@Autowired
+	private AnswerRepository answerRepository;
+
 	@GetMapping("/quizzes")
 	public List<Quiz> getQuizzes(){
 		List<Quiz> quizzes = quizRepository.findAll(Sort.by(Sort.Order.desc("created")));
@@ -50,6 +54,8 @@ public class QuizRestController{
 
         // Hakee kaikki kysymykset, jotka liittyvät tähän quiziin
         List<Question> questions = questionRepository.findByQuiz(quiz);
+        //
+        //List<Answer> answers =
 
         // Palauttaa kaikki quizin tiedot sekä kysymykset ja niiden määrän
         return Map.of(
