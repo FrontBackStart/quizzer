@@ -33,10 +33,12 @@ public class Question{
 		super();
 	}
 
-	public Question(Quiz quiz, String questionText, String difficulty){
+	public Question(Quiz quiz, String questionText, String difficulty, Integer totalAnswers, Integer totalRightAnswers){
 		this.quiz = quiz;
 		this.questionText = questionText;
 		this.difficulty = difficulty;
+		this.totalAnswers = totalAnswers;
+		this.totalRightAnswers = totalRightAnswers;
 	}
 
 	public Integer getQuestionId() {

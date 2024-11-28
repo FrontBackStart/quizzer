@@ -51,11 +51,11 @@ public class QuizzerApplication {
 					quizRepo.save(quiz3);
 
 					log.info("Create Questions");
-					Question question1 = new Question(quiz1, "What is the capital of Finland?", "Easy");
+					Question question1 = new Question(quiz1, "What is the capital of Finland?", "Easy", 10, 8);
 					questionRepo.save(question1);
-					Question question2 = new Question(quiz1, "What is the capital of Sweden?", "Easy");
+					Question question2 = new Question(quiz1, "What is the capital of Sweden?", "Easy", 10, 6);
 					questionRepo.save(question2);
-					Question question3 = new Question(quiz3, "How many planets are there in our solar system?", "Medium");
+					Question question3 = new Question(quiz3, "How many planets are there in our solar system?", "Medium", 12, 4);
 					questionRepo.save(question3);
 
 					log.info("Create Answers");
