@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-function QuestionList() {
+function QuizView() {
     const [questions, setQuestions] = useState([]);
     const { quizId } = useParams();
     const [quizDetails, setQuizDetails] = useState(null);
@@ -113,4 +113,4 @@ function QuestionList() {
     );
 }
 
-export default QuestionList;
+export default QuizView;
