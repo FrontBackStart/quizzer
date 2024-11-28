@@ -5,12 +5,13 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Card } from "@mui/material";
+import { Card, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
 function QuestionList() {
     const [questions, setQuestions] = useState([]);
     const { quizId } = useParams();
     const [quizDetails, setQuizDetails] = useState(null);
+    const [answers, setAnswers] = useState({});
 
     async function fetchQuizData() {
         const response = await fetch(`http://localhost:8080/api/quizzes/${quizId}`);
@@ -19,11 +20,21 @@ function QuestionList() {
         setQuestions(data.questions); 
     }
 
+    async function fetchAnswerData() {
+        const response = await fetch(`http://localhost:8080/api/answers/1`);
+        const data = await response.json();
+        setAnswers(data);
+
+    }
     
 
     useEffect(() => {
         fetchQuizData(); 
     }, [quizId]); 
+
+    useEffect(() => {
+        fetchAnswerData(); 
+    }, []); 
 
     return (
         <>
@@ -49,6 +60,26 @@ function QuestionList() {
                         <Typography variant="body2"> 
                             Question {index + 1} of {quizDetails?.questionCount} - Difficulty: {question.difficulty}
                         </Typography>
+                        {answers.map((answer, AnswerIndex) => (
+                            <RadioGroup>
+                                <FormControlLabel 
+                                    key={AnswerIndex}
+                                    value="AnswerIndex" 
+                                    control={<Radio />} 
+                                    label={answers[AnswerIndex]?.answerText || "Loading..."} 
+                                />
+                            </RadioGroup>
+                        ))}
+                        <button
+                            style={{
+                                backgroundColor: "transparent",
+                                color: "blue",
+                                border: "none",
+                                cursor: "pointer"
+                            }}
+                        >
+                            SUBMIT YOUR ANSWER
+                        </button>
                     </Card>
                 ))}
             </div>
