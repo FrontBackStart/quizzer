@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,4 +70,16 @@ public class QuizRestController{
             "questionCount", questions.size()
         );
     }
+   	@PostMapping("/answers/{questionId}")
+	public String submitAnswer(@PathVariable Integer questionId ){
+		// TODO:
+		// implement attribute totalAnswers for Question
+		// implement attribute totalRightAnswers for Question
+		// increment question's totalAnswers by 1
+		// check if submitted answer's ( = request body ) isRight value is True
+		// if True, increment totalRightAnswers by 1
+		// return "correct answer"
+		// else, return "wrong answer"
+		return "";
+	}
 }

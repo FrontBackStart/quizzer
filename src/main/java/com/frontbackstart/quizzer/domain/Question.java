@@ -21,6 +21,10 @@ public class Question{
 
 	private String difficulty;
 
+	private Integer totalAnswers;
+
+	private Integer totalRightAnswers;
+
 	//@JsonIgnore
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
@@ -29,10 +33,12 @@ public class Question{
 		super();
 	}
 
-	public Question(Quiz quiz, String questionText, String difficulty){
+	public Question(Quiz quiz, String questionText, String difficulty, Integer totalAnswers, Integer totalRightAnswers){
 		this.quiz = quiz;
 		this.questionText = questionText;
 		this.difficulty = difficulty;
+		this.totalAnswers = totalAnswers;
+		this.totalRightAnswers = totalRightAnswers;
 	}
 
 	public Integer getQuestionId() {
@@ -65,6 +71,22 @@ public class Question{
 
 	public void setDifficulty(String difficulty) {
 		this.difficulty = difficulty;
+	}
+
+	public Integer getTotalAnswers() {
+		return totalAnswers;
+	}
+
+	public void setTotalAnswers(Integer totalAnswers) {
+		this.totalAnswers = totalAnswers;
+	}
+
+	public Integer getTotalRightAnswers() {
+		return totalRightAnswers;
+	}
+
+	public void setTotalRightAnswers(Integer totalRightAnswers) {
+		this.totalRightAnswers = totalRightAnswers;
 	}
 
 	public List<Answer> getAnswers() {
