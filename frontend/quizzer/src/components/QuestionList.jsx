@@ -11,30 +11,46 @@ function QuestionList() {
     const [questions, setQuestions] = useState([]);
     const { quizId } = useParams();
     const [quizDetails, setQuizDetails] = useState(null);
-    const [answers, setAnswers] = useState({});
+    const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
 
     async function fetchQuizData() {
-        const response = await fetch(`http://localhost:8080/api/quizzes/${quizId}`);
-        const data = await response.json();
-        setQuizDetails(data);
-        setQuestions(data.questions); 
+        try {
+            const response = await fetch(`http://localhost:8080/api/quizzes/${quizId}`);
+            const data = await response.json();
+
+            setQuizDetails({
+                name: data.name,
+                description: data.description,
+                created: data.created,
+                questionCount: data.questionCount,
+                category: data.category,
+            });
+            setQuestions(data.questions);
+        } catch (error) {
+            console.error("Error fetching quiz data:", error);
+        }
     }
 
-    async function fetchAnswerData() {
-        const response = await fetch(`http://localhost:8080/api/answers/1`);
-        const data = await response.json();
-        setAnswers(data);
-
-    }
-    
-
     useEffect(() => {
-        fetchQuizData(); 
-    }, [quizId]); 
+        fetchQuizData();
+    }, [quizId]);
 
-    useEffect(() => {
-        fetchAnswerData(); 
-    }, []); 
+    const handleAnswerChange = (questionId, answerId) => {
+        setSelectedAnswers((prev) => ({
+            ...prev,
+            [questionId]: answerId,
+        }));
+    };
+
+    const handleSubmitAnswer = async (questionId) => {
+        const selectedAnswerId = selectedAnswers[questionId];
+        if (!selectedAnswerId) {
+            alert("Please select an answer before submitting.");
+            return;
+        } else {
+            alert(selectedAnswerId);
+        }
+    };
 
     return (
         <>
@@ -54,29 +70,39 @@ function QuestionList() {
                 )}
             </div>
             <div>
-                {questions.map((question, index) => (
+            {questions.map((question, index) => (
                     <Card key={index} style={{ marginBottom: 10, padding: 20 }}>
                         <Typography variant="h6">{question.questionText}</Typography>
-                        <Typography variant="body2"> 
-                            Question {index + 1} of {quizDetails?.questionCount} - Difficulty: {question.difficulty}
+                        <Typography variant="body2">
+                            Question {index + 1} of {quizDetails?.questionCount} - Difficulty:{" "}
+                            {question.difficulty || "Unknown"}
                         </Typography>
-                        {answers.map((answer, AnswerIndex) => (
-                            <RadioGroup>
-                                <FormControlLabel 
-                                    key={AnswerIndex}
-                                    value="AnswerIndex" 
-                                    control={<Radio />} 
-                                    label={answers[AnswerIndex]?.answerText || "Loading..."} 
-                                />
+                        <FormControl component="fieldset">
+                            <RadioGroup
+                                value={selectedAnswers[question.questionId] || ""}
+                                onChange={(e) =>
+                                    handleAnswerChange(question.questionId, e.target.value)
+                                }
+                            >
+                                {question.answers.map((answer) => (
+                                    <FormControlLabel
+                                        key={answer.answerId}
+                                        value={answer.answerId}
+                                        control={<Radio />}
+                                        label={answer.answerText}
+                                    />
+                                ))}
                             </RadioGroup>
-                        ))}
+                        </FormControl>
+                        <br />
                         <button
                             style={{
                                 backgroundColor: "transparent",
                                 color: "blue",
                                 border: "none",
-                                cursor: "pointer"
+                                cursor: "pointer",
                             }}
+                            onClick={() => handleSubmitAnswer(question.questionId)}
                         >
                             SUBMIT YOUR ANSWER
                         </button>
