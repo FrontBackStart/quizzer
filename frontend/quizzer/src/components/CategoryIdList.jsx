@@ -5,7 +5,6 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 
-
 function CategoryIdList() {
 	const [quizzes, setQuizzes] = useState([]);
     const { categoryId } = useParams();
