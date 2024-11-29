@@ -1,6 +1,7 @@
 package com.frontbackstart.quizzer.web;
 
 import com.frontbackstart.quizzer.domain.Quiz;
+import com.frontbackstart.quizzer.domain.Answer;
 import com.frontbackstart.quizzer.domain.Question;
 import com.frontbackstart.quizzer.repository.AnswerRepository;
 import com.frontbackstart.quizzer.repository.QuestionRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,15 +73,59 @@ public class QuizRestController{
         );
     }
    	@PostMapping("/answers/{questionId}")
-	public String submitAnswer(@PathVariable Integer questionId ){
-		// TODO:
-		// implement attribute totalAnswers for Question
-		// implement attribute totalRightAnswers for Question
-		// increment question's totalAnswers by 1
-		// check if submitted answer's ( = request body ) isRight value is True
-		// if True, increment totalRightAnswers by 1
-		// return "correct answer"
-		// else, return "wrong answer"
-		return "";
-	}
+	public String submitAnswer(@PathVariable Integer questionId, @RequestBody Map<String, Object> answerData ){
+
+        Question question = questionRepository.findById(questionId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found"));
+
+            Integer selectedAnswerId = (Integer) answerData.get("answerId");
+
+             Answer selectedAnswer = answerRepository.findById(selectedAnswerId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Answer not found"));
+
+            question.setTotalAnswers(question.getTotalAnswers() + 1);
+            if (selectedAnswer.getIsRight()) {
+                question.setTotalRightAnswers(question.getTotalRightAnswers() + 1);
+                questionRepository.save(question);
+                return "Correct answer";
+            } else {
+                questionRepository.save(question);
+                return "Wrong answer";
+            }
+}
+
+@GetMapping("/seeresults/{quizId}")
+public Map<String, Object> getQuizResults(@PathVariable Integer quizId) {
+    
+    Quiz quiz = quizRepository.findById(quizId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found"));
+
+    
+    List<Question> questions = questionRepository.findByQuiz(quiz);
+
+    
+    int totalAnswers = questions.stream().mapToInt(Question::getTotalAnswers).sum();
+    int totalRightAnswers = questions.stream().mapToInt(Question::getTotalRightAnswers).sum();
+
+    
+    List<Map<String, Object>> questionDetails = questions.stream()
+            .map(question -> {
+                Map<String, Object> questionMap = Map.of(
+                        "questionText", question.getQuestionText(),
+                        "difficulty", question.getDifficulty(),
+                        "totalAnswers", question.getTotalAnswers(),
+                        "totalRightAnswers", question.getTotalRightAnswers()
+                );
+                return questionMap;
+            })
+            .toList();
+
+    
+    return Map.of(
+            "quizName", quiz.getName(),
+            "questions", questionDetails,
+            "totalAnswers", totalAnswers,
+            "totalRightAnswers", totalRightAnswers
+    );
+}
 }
