@@ -47,10 +47,28 @@ function QuizView() {
         if (!selectedAnswerId) {
             alert("Please select an answer before submitting.");
             return;
-        } else {
-            alert(selectedAnswerId);
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/answers/${questionId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ answerId: parseInt(selectedAnswerId) }),
+            });
+
+            const result = await response.text();
+            const isCorrect = result === "Correct answer";
+
+            alert(isCorrect ? "Correct! Great job!" : "Wrong answer. Try again!");
+        } catch (error) {
+            alert("Error submitting your answer. Please try again.");
+            console.error("Error submitting answer:", error);
         }
     };
+
+
+
+
 
     return (
         <>
