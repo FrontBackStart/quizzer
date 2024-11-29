@@ -16,17 +16,29 @@
                 <tr>
                     <th>Option</th>
                     <th>Right Answer?</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="answer : ${answers}">
                     <td th:text="${answer.answerText}">Quiz Name</td>
                     <td th:text="${answer.isRight ? 'Yes' : 'No'}">Is right</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/questions/{questionId}/editanswer/{answerId}(questionId=${question.questionId}, answerId=${answer.answerId})}">Edit</a>
+                    </td>
+                    <td>
+                        <form th:action="@{/quizzes/{quizId}/deletequestion/{questionId}(quizId=${question.quiz.quizId}, questionId=${question.questionId})}" method="get" style="display:inline;">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Delete"
+                                onclick="return confirm('Are you sure you want to delete this question?');" />
+                    </form>
+                </td>
+
                 </tr>
             </tbody>
         </table>
-        <a class="btn btn-success " href=/quizzes>Done</a>
-        <a class="btn btn-primary " href=/quizzes>New Question</a>
+        <a class="btn btn-primary " th:href="@{/questions/{questionId}/addanswer(questionId=${question.questionId})}">Add an answer</a>
+        <a class="btn btn-secondary " href=/quizzes>Cancel</a>
     </div>
 </body>
 

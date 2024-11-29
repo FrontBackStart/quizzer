@@ -41,6 +41,7 @@
                     <th>Published</th>
                     <th>Created Date</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +51,9 @@
                     <td th:text="${quiz.category}">Quiz Category</td>
                     <td th:text="${quiz.published ? 'Yes' : 'No'}">Published</td>
 					<td th:text="${#temporals.format(quiz.created, 'yyyy-MM-dd HH:mm')}">Quiz Creation Time</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/editquiz/{quizId}(quizId=${quiz.quizId})}">Edit</a>
+                    </td>
                     <td>
                         <form th:action="@{/deletequiz/{quizId}(quizId=${quiz.quizId})}" method="get" style="display:inline;">
                             <input class="btn btn-danger btn-sm" type="submit" value="Delete" 
