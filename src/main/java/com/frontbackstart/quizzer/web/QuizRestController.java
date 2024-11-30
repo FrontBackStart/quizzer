@@ -123,7 +123,7 @@ public Map<String, Object> getQuizResults(@PathVariable Integer quizId) {
     
     return Map.of(
             "quizName", quiz.getName(),
-            "quizId", quiz.getQuizId(),
+            "questionCount", questions.size(),
             "questions", questionDetails,
             "totalAnswers", totalAnswers,
             "totalRightAnswers", totalRightAnswers

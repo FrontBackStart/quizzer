@@ -22,8 +22,10 @@ function ResultsList() {
             { field: "totalAnswers", headerName: "Total answers" },
             { 
                 headerName: "Correct answer %",
-                valueGetter: (p) => (p.data.totalRightAnswers / p.data.totalAnswers) * 100 + "%"
-
+                valueGetter: function (params) {
+                    const percent = Math.round((params.data.totalRightAnswers / params.data.totalAnswers) * 100)
+                    return percent + "%"
+                }
             },
             { field: "totalRightAnswers", headerName: "Correct answers" },
             { 
@@ -42,6 +44,7 @@ function ResultsList() {
                 totalAnswers: data.totalAnswers,
                 totalRightAnswers: data.totalRightAnswers,
                 quizId: data.quizId,
+                questionCount: data.questionCount,
                 quizName: data.quizName
             });
             setQuestions(data.questions);
@@ -56,7 +59,8 @@ function ResultsList() {
 
     return (
     <>
-    <Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">{results.quizName}</Typography>
+    <Typography variant="h4">Results of "{results.quizName}"</Typography>
+    <div>{results.totalAnswers} answers to {results.questionCount} questions</div>
         <div className='ag-theme-material' style={{ height: 500 }}>
             <AgGridReact
                 rowData={questions}
