@@ -4,6 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";
+import { getAllQuizzes } from "../services/fetches";
 
 function QuizList() {
     const [quizzes, setQuizzes] = useState([]);
@@ -48,10 +49,16 @@ function QuizList() {
         ]
     }
 
-    async function getQuizzes() {
-        const response = await fetch("http://localhost:8080/api/quizzes");
-        setQuizzes(await response.json());
-    };
+
+
+
+      
+    function getQuizzes() {
+        getAllQuizzes().then((quizzes) => {
+            setQuizzes(quizzes);
+    });
+    }
+
 
     useEffect(() => {
         getQuizzes();
