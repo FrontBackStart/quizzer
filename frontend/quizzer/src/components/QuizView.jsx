@@ -49,7 +49,7 @@ function QuizView() {
         try {
             const result = await getAnswersByQuestionID(questionId, selectedAnswerId);
 
-            const isCorrect = result === "Correct answer";
+            const isCorrect = result.correct === true;
 
             alert(isCorrect ? "Correct! Great job!" : "Wrong answer. Try again!");
         } catch (error) {
