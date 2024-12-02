@@ -47,7 +47,7 @@ function QuizView() {
         }
 
         try {
-            const result = await getResultsByQuizID(quizId);
+            const result = await getAnswersByQuestionID(quizId);
 
             const isCorrect = result === "Correct answer";
 
