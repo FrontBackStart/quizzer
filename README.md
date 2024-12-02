@@ -2,6 +2,12 @@
 
 This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).
 
+Deployment:
+
+Backend (teacher dashboard): https://quizzer-zxp3.onrender.com
+
+Frontend: https://quizzer-front.onrender.com/
+
 # Quizzer
 
 - **Create Quizzes**: Teachers can easily create quizzes with multiple choice, true/false, and short-answer questions.
