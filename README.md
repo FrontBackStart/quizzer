@@ -18,7 +18,7 @@ This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Softwar
 4. **Track Progress**: After students take the quiz, teachers can review their answers and see performance metrics.
 5. **Reuse Quizzes**: Save and reuse quizzes for future classes or assignments.
 
-## REST API 
+## REST API DOCUMENTATION
 
 Type the below url to access Swagger documentation.
 
