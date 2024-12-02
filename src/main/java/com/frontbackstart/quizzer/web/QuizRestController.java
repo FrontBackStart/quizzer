@@ -111,7 +111,7 @@ public class QuizRestController{
     })
 
    	@PostMapping("/answers/{questionId}")
-	public String submitAnswer(@PathVariable Integer questionId, @RequestBody Map<String, Object> answerData ){
+	public Question submitAnswer(@PathVariable Integer questionId, @RequestBody Map<String, Object> answerData ){
 
         Question question = questionRepository.findById(questionId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found"));
@@ -125,10 +125,10 @@ public class QuizRestController{
             if (selectedAnswer.getIsRight()) {
                 question.setTotalRightAnswers(question.getTotalRightAnswers() + 1);
                 questionRepository.save(question);
-                return "Correct answer";
+                return question;
             } else {
                 questionRepository.save(question);
-                return "Wrong answer";
+                return question;
             }
 }
 

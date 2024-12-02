@@ -47,14 +47,14 @@ function QuizView() {
         }
 
         try {
-            const result = await getAnswersByQuestionID(quizId);
+            const result = await getAnswersByQuestionID(questionId, selectedAnswerId);
 
             const isCorrect = result === "Correct answer";
 
             alert(isCorrect ? "Correct! Great job!" : "Wrong answer. Try again!");
         } catch (error) {
             alert("Error submitting your answer. Please try again.");
-            console.error("Error submitting answer:", error);
+            console.error(error);
         }
     };
 
