@@ -27,3 +27,13 @@ export function getResultsByQuizID(quizId) {
     response.json()
   );
 }
+
+export function getAnswersByQuestionID(questionId, selectedAnswerId) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/answers/${questionId}`,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ answerId: parseInt(selectedAnswerId) }),
+  }).then((response) =>
+    response.json()
+  );
+}
