@@ -27,3 +27,9 @@ export function getResultsByQuizID(quizId) {
     response.json()
   );
 }
+
+export function getAnswersByQuestionID(questionId) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/answers/${questionId}`).then((response) =>
+    response.json()
+  );
+}

@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { getQuizByID } from "../services/fetches";
+import { getAnswersByQuestionID } from "../services/fetches";
 
 function QuizView() {
     const [questions, setQuestions] = useState([]);
@@ -46,13 +47,8 @@ function QuizView() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/answers/${questionId}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ answerId: parseInt(selectedAnswerId) }),
-            });
+            const result = await getResultsByQuizID(quizId);
 
-            const result = await response.text();
             const isCorrect = result === "Correct answer";
 
             alert(isCorrect ? "Correct! Great job!" : "Wrong answer. Try again!");
@@ -62,7 +58,7 @@ function QuizView() {
         }
     };
 
-    
+
     return (
         <>
             <Typography variant="h4" gutterBottom>
