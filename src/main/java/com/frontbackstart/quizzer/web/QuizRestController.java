@@ -7,6 +7,11 @@ import com.frontbackstart.quizzer.repository.AnswerRepository;
 import com.frontbackstart.quizzer.repository.QuestionRepository;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +31,8 @@ import org.springframework.http.HttpStatus;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+@Tag(name = "Quiz", 
+description = "Operations for listing all quizzes, answering quizzes and browsing quiz results")
 public class QuizRestController{
 	@Autowired
 	private QuizRepository quizRepository;
@@ -35,6 +42,16 @@ public class QuizRestController{
 
 	@Autowired
 	private AnswerRepository answerRepository;
+
+     @Operation(
+    summary = "Get all published quizzes",
+    description = "Returns all published quizzes"
+)
+@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Quizzes not found")
+})
 
 	@GetMapping("/quizzes")
 	public List<Quiz> getQuizzes(){
@@ -47,6 +64,16 @@ public class QuizRestController{
 		}
 		return publishedQuizzes;
 	}
+
+    @Operation(
+        summary = "Get published quiz by id",
+        description = "Returns published quizzes with the provided id"
+    )
+    @ApiResponses(value = {
+        // The responseCode property defines the HTTP status code of the response
+        @ApiResponse(responseCode = "200", description = "Successful operation"),
+        @ApiResponse(responseCode = "404", description = "Quiz with the provided id not found or published")
+    })
 
 	@GetMapping("/quizzes/{quizId}")
     public Map<String, Object> getQuestionsForQuiz(@PathVariable Integer quizId) {
@@ -72,6 +99,17 @@ public class QuizRestController{
             "questionCount", questions.size()
         );
     }
+
+    @Operation(
+        summary = "Receive submitted answer option",
+        description = "Receives submitted anwser by id and sends response if the anwer is right or wrong"
+    )
+    @ApiResponses(value = {
+        // The responseCode property defines the HTTP status code of the response
+        @ApiResponse(responseCode = "200", description = "Successful operation"),
+        @ApiResponse(responseCode = "404", description = "Question or answer with the provided id not found ")
+    })
+
    	@PostMapping("/answers/{questionId}")
 	public String submitAnswer(@PathVariable Integer questionId, @RequestBody Map<String, Object> answerData ){
 
@@ -93,6 +131,16 @@ public class QuizRestController{
                 return "Wrong answer";
             }
 }
+
+@Operation(
+    summary = "Get results for a quiz",
+    description = "Returns total answers and total right answers for a quiz"
+)
+@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Quiz with the provided id not found")
+})
 
 @GetMapping("/seeresults/{quizId}")
 public Map<String, Object> getQuizResults(@PathVariable Integer quizId) {

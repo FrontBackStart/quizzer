@@ -44,3 +44,7 @@ This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Softwar
 **Open In Browser.** Type the below url to access app.
 
     localhost:8080
+
+**REST API** Type the below url to access Swagger documentation.
+
+http://localhost:8080/swagger-ui/index.html

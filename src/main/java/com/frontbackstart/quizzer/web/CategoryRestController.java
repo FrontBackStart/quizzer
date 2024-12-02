@@ -5,6 +5,11 @@ import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.CategoryRepository;
 import com.frontbackstart.quizzer.repository.QuizRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +25,7 @@ import org.springframework.http.HttpStatus;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+@Tag(name = "Category", description = "Operations for accessing and managing categories")
 public class CategoryRestController{
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -27,11 +33,31 @@ public class CategoryRestController{
 	@Autowired
     private QuizRepository quizRepository;
 
+    @Operation(
+    summary = "Get all categories",
+    description = "Returns all categories"
+)
+@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Categories not found")
+})
+
 	@GetMapping("/categories")
 	public List<Category> getCategories(){
 		List<Category> categories = categoryRepository.findAll();
 		return categories;
 	}
+
+    @Operation(
+    summary = "Get quizzes by category id",
+    description = "Returns all quizzes with the provided category id"
+)
+@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Category with the provided id not found")
+})
 
 	@GetMapping("/categories/{categoryId}")
     public List<Quiz> getPublishedQuizzesByCategory(@PathVariable Integer categoryId) {
