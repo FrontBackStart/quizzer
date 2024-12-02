@@ -6,6 +6,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { getQuizByID } from "../services/fetches";
 
 function QuizView() {
     const [questions, setQuestions] = useState([]);
@@ -14,9 +15,7 @@ function QuizView() {
     const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
 
     async function fetchQuizData() {
-        try {
-            const response = await fetch(`http://localhost:8080/api/quizzes/${quizId}`);
-            const data = await response.json();
+            const data = await getQuizByID(quizId);
 
             setQuizDetails({
                 name: data.name,
@@ -26,9 +25,6 @@ function QuizView() {
                 category: data.category,
             });
             setQuestions(data.questions);
-        } catch (error) {
-            console.error("Error fetching quiz data:", error);
-        }
     }
 
     useEffect(() => {
@@ -66,10 +62,7 @@ function QuizView() {
         }
     };
 
-
-
-
-
+    
     return (
         <>
             <Typography variant="h4" gutterBottom>

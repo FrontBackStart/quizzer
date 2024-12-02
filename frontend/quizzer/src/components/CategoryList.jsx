@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { useNavigate } from "react-router-dom";
+import { getAllCategories } from "../services/fetches";
 
 function CategoryList() {
 	const [categories, setCategories] = useState([]);
@@ -42,8 +43,8 @@ function CategoryList() {
 	}
 
 	async function getCategories() {
-		const response = await fetch("http://localhost:8080/api/categories");
-		setCategories(await response.json());
+		const response = await getAllCategories();
+		setCategories(response);
 	};
 
 	useEffect(() => {

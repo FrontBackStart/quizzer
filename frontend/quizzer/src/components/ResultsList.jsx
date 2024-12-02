@@ -4,7 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
-
+import { getResultsByQuizID } from "../services/fetches";
 
 function ResultsList() {
     const [results, setResults] = useState([]);
@@ -36,21 +36,16 @@ function ResultsList() {
     }
 
     async function getResults() {
-        try {
-            const response = await fetch(`http://localhost:8080/api/seeresults/${quizId}`);
-            const data = await response.json();
+        const data = await getResultsByQuizID(quizId);
 
-            setResults({
-                totalAnswers: data.totalAnswers,
-                totalRightAnswers: data.totalRightAnswers,
-                quizId: data.quizId,
-                questionCount: data.questionCount,
-                quizName: data.quizName
-            });
-            setQuestions(data.questions);
-        } catch (error) {
-            console.error("Error fetching results data:", error);
-        }
+        setResults({
+            totalAnswers: data.totalAnswers,
+            totalRightAnswers: data.totalRightAnswers,
+            quizId: data.quizId,
+            questionCount: data.questionCount,
+            quizName: data.quizName
+        });
+        setQuestions(data.questions);
     }
 
     useEffect(() => {

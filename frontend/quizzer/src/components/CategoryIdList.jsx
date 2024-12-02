@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getCategoryByID } from "../services/fetches";
 
 function CategoryIdList() {
     const [quizzes, setQuizzes] = useState([]);
@@ -51,14 +52,15 @@ function CategoryIdList() {
     }
 
     async function fetchQuizData() {
-        const response = await fetch(`http://localhost:8080/api/categories/${categoryId}`);
-        const data = await response.json();
+        const data = await getCategoryByID(categoryId);
         setQuizzes(data);
         setCategoryDetails({
             name: data[0].category.name,
             description: data[0].category.description
         })
     }
+
+
 
     useEffect(() => {
         fetchQuizData();
