@@ -28,6 +28,9 @@ public class Quiz{
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions;
 
+	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
+
 	public Quiz(){
 		super();
 	}
@@ -94,5 +97,13 @@ public class Quiz{
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+	public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
