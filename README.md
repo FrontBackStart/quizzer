@@ -1,12 +1,4 @@
-[Backlog](https://github.com/orgs/FrontBackStart/projects/1/views/1)
-
-This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).
-
-Deployment is done using [render](https://render.com/) free plan. It can take several minutes for your browser to access the sites below.
-
-Backend (teacher dashboard): https://quizzer-zxp3.onrender.com
-
-Frontend: https://quizzer-front.onrender.com/
+**This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).**
 
 # Quizzer
 
@@ -23,6 +15,16 @@ Frontend: https://quizzer-front.onrender.com/
 3. **Assign the Quiz**: Select the students or groups who will take the quiz.
 4. **Track Progress**: After students take the quiz, teachers can review their answers and see performance metrics.
 5. **Reuse Quizzes**: Save and reuse quizzes for future classes or assignments.
+
+[Backlog](https://github.com/orgs/FrontBackStart/projects/1/views/1)
+
+
+Deployment is done using [render](https://render.com/) free plan. It can take several minutes for your browser to access the sites below.
+
+Backend (teacher dashboard): https://quizzer-zxp3.onrender.com
+
+Frontend: https://quizzer-front.onrender.com/
+
 
 ## REST API DOCUMENTATION
 
