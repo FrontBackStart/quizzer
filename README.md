@@ -1,7 +1,7 @@
 **This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).**
 
-|Backend|Fronend|REST api documentation|
-|:-----:|:------|:--------------------:|
+|Backend|Frontend|REST api documentation|
+|:-----:|:------:|:--------------------:|
 |https://quizzer-zxp3.onrender.com|https://quizzer-front.onrender.com/|https://quizzer-zxp3.onrender.com/swagger-ui/index.html|
 
 # Quizzer
