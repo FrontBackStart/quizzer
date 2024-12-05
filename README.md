@@ -1,5 +1,9 @@
 **This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).**
 
+|Backend|Fronend|REST api documentation|
+|:-----:|:------|:--------------------:|
+|https://quizzer-zxp3.onrender.com|https://quizzer-front.onrender.com/|https://quizzer-zxp3.onrender.com/swagger-ui/index.html|
+
 # Quizzer
 
 - **Create Quizzes**: Teachers can easily create quizzes with multiple choice, true/false, and short-answer questions.
@@ -15,6 +19,13 @@
 3. **Assign the Quiz**: Select the students or groups who will take the quiz.
 4. **Track Progress**: After students take the quiz, teachers can review their answers and see performance metrics.
 5. **Reuse Quizzes**: Save and reuse quizzes for future classes or assignments.
+
+## Getting Started
+
+### Prerequisites
+
+- A modern web browser (Google Chrome, Firefox, Safari, etc.)
+- An active internet connection
 
 [Backlog](https://github.com/orgs/FrontBackStart/projects/1/views/1)
 
@@ -32,12 +43,6 @@ Type the below url to access Swagger documentation.
 
 https://quizzer-zxp3.onrender.com/swagger-ui/index.html
 
-## Getting Started
-
-### Prerequisites
-
-- A modern web browser (Google Chrome, Firefox, Safari, etc.)
-- An active internet connection
 
 # Developer Guide
 
