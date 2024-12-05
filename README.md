@@ -2,7 +2,7 @@
 
 This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).
 
-Deployment:
+Deployment is done using [render](https://render.com/) free plan. It can take several minutes for your browser to access the sites below.
 
 Backend (teacher dashboard): https://quizzer-zxp3.onrender.com
 
@@ -42,6 +42,7 @@ https://quizzer-zxp3.onrender.com/swagger-ui/index.html
 ### Prerequisites
 
 - Java 17 or higher
+- npm
 - Git
 - Internet connection
 
@@ -49,10 +50,32 @@ https://quizzer-zxp3.onrender.com/swagger-ui/index.html
 
     $ git clone https://github.com/FrontBackStart/quizzer.git
 
-**Start Development Server.** Navigate to a directory/folder named `quizzer`. Compile and run the application using Maven.
+### Backend Development Guide
+
+This development project uses an in-memory H2 database.
+
+**Start Development Server.** Navigate to a directory/folder named `quizzer` (the one with files `mvnw` and `pom.xml`). Compile and run the application using Maven.
 
     $ ./mvnw spring-boot:run
 
 **Open In Browser.** Type the below url to access app.
 
-    localhost:8080
+    http://localhost:8080
+
+## Frontend Development Guide
+
+The frontend project lives in the same repository as Java/Springboot backend.
+
+Navigate from `quizzer` to `frontend/quizzer` (the right directory is the one with file `package.json`).
+
+**Install dependencies**
+
+    $ npm install
+
+**Start Development Server**
+
+    $ npm run dev
+
+**Open in browser** Type the below url to access app.
+
+    http://localhost:5173
