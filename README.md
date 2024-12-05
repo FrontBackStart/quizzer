@@ -28,7 +28,7 @@ Frontend: https://quizzer-front.onrender.com/
 
 Type the below url to access Swagger documentation.
 
-http://localhost:8080/swagger-ui/index.html
+https://quizzer-zxp3.onrender.com/swagger-ui/index.html
 
 ## Getting Started
 
