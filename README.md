@@ -1,8 +1,7 @@
 **This is a web app made for Haaga-Helia UAS course [Ohjelmistoprojekti 1 (Software Development Project 1)](https://software-development-project-1.github.io/).**
 
-|Backend|Frontend|REST api documentation|
-|:-----:|:------:|:--------------------:|
-|https://quizzer-zxp3.onrender.com|https://quizzer-front.onrender.com/|https://quizzer-zxp3.onrender.com/swagger-ui/index.html|
+[Backlog](https://github.com/orgs/FrontBackStart/projects/1/views/1)
+
 
 # Quizzer
 
@@ -27,22 +26,21 @@
 - A modern web browser (Google Chrome, Firefox, Safari, etc.)
 - An active internet connection
 
-[Backlog](https://github.com/orgs/FrontBackStart/projects/1/views/1)
-
+## Deployment
 
 Deployment is done using [render](https://render.com/) free plan. It can take several minutes for your browser to access the sites below.
 
-Backend (teacher dashboard): https://quizzer-zxp3.onrender.com
+### Backend (teacher dashboard)
 
-Frontend: https://quizzer-front.onrender.com/
+https://quizzer-zxp3.onrender.com
 
+### Frontend
 
-## REST API DOCUMENTATION
+https://quizzer-front.onrender.com/
 
-Type the below url to access Swagger documentation.
+### REST api documentation
 
 https://quizzer-zxp3.onrender.com/swagger-ui/index.html
-
 
 # Developer Guide
 
