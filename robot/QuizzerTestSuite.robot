@@ -13,3 +13,8 @@ Front site opens
     Open Browser    http://localhost:5173       ${BROWSER}
     Page Should Contain     Quizzes
 	Close Browser
+
+Back site opens
+    Open Browser    http://localhost:8080       ${BROWSER}
+    Page Should Contain     Quizzes
+	Close Browser
