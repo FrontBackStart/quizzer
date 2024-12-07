@@ -36,3 +36,4 @@ build/
 venv
 robot/*.html
 robot/*.xml
+robot/*.png
