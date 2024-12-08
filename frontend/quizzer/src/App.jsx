@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import { Route, Routes } from 'react-router-dom';
 import CategoryIdList from './components/CategoryIdList';
 import ResultsList from './components/ResultsList';
+import Review from './components/Review';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 				<Route path="/questions/:quizId" element={<QuizView />} />
 				<Route path="/categories/:categoryId" element={<CategoryIdList />} />
 				<Route path="/seeresults/:quizId" element={<ResultsList />} />
+				<Route path="/quizzes/:quizId/addReview" element={<Review />} />
 			</Routes>
 		</Container>
 	)
