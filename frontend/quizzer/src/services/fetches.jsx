@@ -28,6 +28,16 @@ export function getResultsByQuizID(quizId) {
   );
 }
 
+export function saveReviewForQuiz(quizId, review) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes/${quizId}/reviews`,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(review),
+  }).then((response) =>
+    response.json()
+  );
+}
+
 export function getAnswersByQuestionID(questionId, selectedAnswerId) {
   return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/answers/${questionId}`,{
     method: "POST",
