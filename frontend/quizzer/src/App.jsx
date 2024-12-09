@@ -7,11 +7,11 @@ import { Route, Routes } from 'react-router-dom';
 import CategoryIdList from './components/CategoryIdList';
 import ResultsList from './components/ResultsList';
 import Review from './components/Review';
-
+import "./App.css"
 
 function App() {
 	return (
-		<Container maxWidth="xl">
+		<Container maxWidth={false} disableGutters={true}>
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<QuizList />} />
