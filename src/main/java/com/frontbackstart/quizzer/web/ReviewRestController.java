@@ -47,9 +47,11 @@ public class ReviewRestController {
     @GetMapping("/quizzes/{quizId}/reviews")
     public Map<String, Object> getReviews(@PathVariable Integer quizId) {
         Quiz quiz = quizRepository.findById(quizId)
+                .filter(Quiz::getPublished)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found"));
 
         List<Review> reviews = reviewRepository.findByQuiz(quiz);
+
         double averageRating = reviews.stream()
                 .mapToInt(Review::getRating)
                 .average()
