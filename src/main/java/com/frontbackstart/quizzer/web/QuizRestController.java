@@ -120,7 +120,7 @@ public class QuizRestController{
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found"));
 
         Quiz quiz = question.getQuiz();
-        if(quiz.getPublished() == false){
+        if(!quiz.getPublished()){
         	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
         }
 
