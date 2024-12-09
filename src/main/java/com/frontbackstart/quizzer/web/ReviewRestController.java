@@ -48,7 +48,7 @@ public class ReviewRestController {
     public Map<String, Object> getReviews(@PathVariable Integer quizId) {
         Quiz quiz = quizRepository.findById(quizId)
                 .filter(Quiz::getPublished)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found or published"));
 
         List<Review> reviews = reviewRepository.findByQuiz(quiz);
 

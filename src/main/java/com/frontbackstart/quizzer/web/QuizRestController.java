@@ -151,7 +151,8 @@ public class QuizRestController{
 public Map<String, Object> getQuizResults(@PathVariable Integer quizId) {
 
     Quiz quiz = quizRepository.findById(quizId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found"));
+            .filter(Quiz::getPublished)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found or published"));
 
 
     List<Question> questions = questionRepository.findByQuiz(quiz);
