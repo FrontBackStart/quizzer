@@ -50,6 +50,7 @@ https://quizzer-zxp3.onrender.com/swagger-ui/index.html
 - npm
 - Git
 - Internet connection
+- Python3 (for UI testing)
 
 **Clone Repository.** Navigate in terminal/command line to a directory or a folder where you wish to place the source code. Use git to clone the repository
 
@@ -73,14 +74,30 @@ The frontend project lives in the same repository as Java/Springboot backend.
 
 Navigate from `quizzer` to `frontend/quizzer` (the right directory is the one with file `package.json`).
 
-**Install dependencies**
+**Install dependencies.**
 
     $ npm install
 
-**Start Development Server**
+**Start Development Server.**
 
     $ npm run dev
 
-**Open in browser** Type the below url to access app.
+**Open in browser.** Type the below url to access app.
 
     http://localhost:5173
+
+## Test Development
+
+### Integration tests
+
+Integration tests are done using JUnit framework. After cloning this full repository navigate to `quizzer/src/test/java/com/frontbackstart/quizzer/` to develop tests.
+
+**Run tests.** Navigate to a directory/folder named `quizzer` (the one with files `mvnw` and `pom.xml`).
+
+    ./mvnw test
+
+### UI / E2E tests
+
+
+
+UI / E2E testin is done using Robot framework.
