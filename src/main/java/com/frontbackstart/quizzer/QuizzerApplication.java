@@ -17,6 +17,8 @@ import com.frontbackstart.quizzer.repository.QuizRepository;
 import com.frontbackstart.quizzer.domain.Quiz;
 import com.frontbackstart.quizzer.repository.CategoryRepository;
 import com.frontbackstart.quizzer.domain.Category;
+import com.frontbackstart.quizzer.repository.ReviewRepository;
+import com.frontbackstart.quizzer.domain.Review;
 
 @SpringBootApplication
 public class QuizzerApplication {
@@ -28,7 +30,7 @@ public class QuizzerApplication {
 	}
 
 	@Bean
-		public CommandLineRunner testDataInitializer(CategoryRepository categoryRepo, AnswerRepository answerRepo, QuestionRepository questionRepo, QuizRepository quizRepo) {
+		public CommandLineRunner testDataInitializer(CategoryRepository categoryRepo, AnswerRepository answerRepo, QuestionRepository questionRepo, QuizRepository quizRepo, ReviewRepository reviewRepo) {
 			LocalDateTime added = LocalDateTime.of(2021, 11, 07, 15, 15);
 			return (args) -> {
 				List<Quiz> quizzes = quizRepo.findAll();
@@ -76,6 +78,18 @@ public class QuizzerApplication {
 					answerRepo.save(ansG);
 					Answer ansH = new Answer(question2, "Timbuktu", false);
 					answerRepo.save(ansH);
+
+					log.info("Create Reviews");
+
+					Review rewA = new Review(quiz1, "GeoGraphy Lover", 5, "Absolutely love this quiz. 10/10");
+					reviewRepo.save(rewA);
+					Review rewb = new Review(quiz1, "QuizHater95", 1, "This quiz sucks :(");
+					reviewRepo.save(rewb);
+					Review rewc = new Review(quiz1, "MediocreMatt", 3, "Too much water.");
+					reviewRepo.save(rewc);
+
+					Review rewD = new Review(quiz2, "GeoGraphy Lover", 4, "Why hasn't anyone else reviewed this baller quiz?");
+					reviewRepo.save(rewD);
 				};
 			};
 		}
