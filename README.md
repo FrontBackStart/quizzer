@@ -90,14 +90,16 @@ Navigate from `quizzer` to `frontend/quizzer` (the right directory is the one wi
 
 ### Integration tests
 
-Integration tests are done using JUnit framework. After cloning this full repository navigate to `quizzer/src/test/java/com/frontbackstart/quizzer/` to develop tests.
+Integration tests are done using JUnit framework. Develop tests in `quizzer/src/test/java/com/frontbackstart/quizzer/`.
 
 **Run tests.** Navigate to a directory/folder named `quizzer` (the one with files `mvnw` and `pom.xml`).
 
-    ./mvnw test
+    $ ./mvnw test
 
 ### UI / E2E tests
 
+UI / E2E testing is done using Robot framework.
 
+**Create virtual environment.** Navigate to a directory/folder named `quizzer` (the one with files `mvnw` and `pom.xml`).
 
-UI / E2E testin is done using Robot framework.
+    $ python3 -m venv ./venv    # creates a new virtual environment named "venv" in current directory
