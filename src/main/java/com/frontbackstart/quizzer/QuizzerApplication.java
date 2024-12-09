@@ -79,6 +79,11 @@ public class QuizzerApplication {
 					Answer ansH = new Answer(question2, "Timbuktu", false);
 					answerRepo.save(ansH);
 
+					Answer ansI = new Answer(question3, "8", true);
+					answerRepo.save(ansI);
+					Answer ansJ = new Answer(question3, "9", false);
+					answerRepo.save(ansJ);
+
 					log.info("Create Reviews");
 
 					Review rewA = new Review(quiz1, "GeoGraphy Lover", 5, "Absolutely love this quiz. 10/10");
