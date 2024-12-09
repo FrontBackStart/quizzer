@@ -45,20 +45,35 @@ function QuizList() {
                     const date = new Date(params.value);
                     return date.toLocaleDateString('de-DE');
                 },
+            },
+            { field: "actions",
+            headerName: "Actions",
+            cellRenderer: (params) => {
+                const quizId = params.data.quizId;
+                return (
+                    <button
+                        style={{
+                            backgroundColor: "transparent",
+                            color: "blue",
+                            border: "none",
+                            textDecoration: "underline",
+                            cursor: "pointer"
+                        }}
+                        onClick={() => navigate(`/quizzes/${quizId}/reviews`)}
+                    >
+                        See Reviews
+                        </button>
+                    );
+                },
             }
         ]
     }
 
-
-
-
-      
     function getQuizzes() {
         getAllQuizzes().then((quizzes) => {
             setQuizzes(quizzes);
     });
     }
-
 
     useEffect(() => {
         getQuizzes();

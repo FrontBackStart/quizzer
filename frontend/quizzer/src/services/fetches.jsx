@@ -46,4 +46,12 @@ export function getAnswersByQuestionID(questionId, selectedAnswerId) {
   }).then((response) =>
     response.json()
   );
+
+  
+}
+
+export function getReviewsByQuizID(quizId) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes/${quizId}/reviews`).then((response) =>
+    response.json()
+  );
 }

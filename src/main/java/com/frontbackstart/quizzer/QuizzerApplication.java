@@ -93,7 +93,7 @@ public class QuizzerApplication {
 					Review rewc = new Review(quiz1, "MediocreMatt", 3, "Too much water.");
 					reviewRepo.save(rewc);
 
-					Review rewD = new Review(quiz2, "GeoGraphy Lover", 4, "Why hasn't anyone else reviewed this baller quiz?");
+					Review rewD = new Review(quiz1, "GeoGraphy Lover's Alt", 4, "Why hasn't anyone else reviewed this baller quiz?");
 					reviewRepo.save(rewD);
 				};
 			};
