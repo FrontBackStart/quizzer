@@ -61,21 +61,21 @@ function QuizView() {
 
     return (
         <>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutter>
                 {quizDetails?.name || "Loading..."}
             </Typography>
-            <div>
+            <Box sx={{ p: 1 }}>
                 {quizDetails && (
                     <>
                         <div>{quizDetails.description}</div>
                         <div>
-                            Added on: {quizDetails.created ? new Date(quizDetails.created).toLocaleDateString('de-DE') : "Loading..."} - 
-                            Questions: {quizDetails.questionCount} - 
+                            Added on: {quizDetails.created ? new Date(quizDetails.created).toLocaleDateString('de-DE') : "Loading..."} -
+                            Questions: {quizDetails.questionCount} -
                             Category: {quizDetails?.category || "Loading..."}
                         </div>
                     </>
                 )}
-            </div>
+            </Box>
             <div>
             {questions.map((question, index) => (
                     <Card key={index} style={{ marginBottom: 10, padding: 20 }}>

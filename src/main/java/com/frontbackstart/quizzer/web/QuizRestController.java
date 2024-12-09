@@ -119,6 +119,11 @@ public class QuizRestController{
         Question question = questionRepository.findById(questionId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found"));
 
+        Quiz quiz = question.getQuiz();
+        if(quiz.getPublished() == false){
+        	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
+        }
+
             Integer selectedAnswerId = (Integer) answerData.get("answerId");
 
              Answer selectedAnswer = answerRepository.findById(selectedAnswerId)
