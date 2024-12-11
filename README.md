@@ -102,4 +102,9 @@ UI / E2E testing is done using Robot framework.
 
 **Create virtual environment.** Navigate to a directory/folder named `quizzer` (the one with files `mvnw` and `pom.xml`).
 
-    $ python3 -m venv ./venv    # creates a new virtual environment named "venv" in current directory
+    $ python3 -m venv ./venv
+    $ source venv/bin/activate
+    $ cd robot
+    $ pip install robotframework-seleniumlibrary
+
+**Install browser drivers.** Depending on your OS installing browser drivers varies. [Here](https://katekuehl.medium.com/installation-guide-for-google-chrome-chromedriver-and-selenium-in-a-python-virtual-environment-e1875220be2f) seems to be an ok guide to installing browser drivers for Windows, Mac and Linux (not tested, but read through).
