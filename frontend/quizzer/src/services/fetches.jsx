@@ -55,3 +55,15 @@ export function getReviewsByQuizID(quizId) {
     response.json()
   );
 }
+
+export function editReviewById(reviewId, updatedReview) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/reviews/${reviewId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedReview),
+  }).then((response) =>
+    response.json()
+  );
+}

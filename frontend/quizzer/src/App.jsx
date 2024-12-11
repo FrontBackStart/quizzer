@@ -8,6 +8,7 @@ import CategoryIdList from './components/CategoryIdList';
 import ResultsList from './components/ResultsList';
 import Review from './components/Review';
 import ReviewsList from './components/ReviewsList';
+import ReviewEdit from './components/ReviewEdit';
 import "./App.css"
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 				<Route path="/seeresults/:quizId" element={<ResultsList />} />
 				<Route path="/quizzes/:quizId/addReview" element={<Review />} />
 				<Route path="/quizzes/:quizId/reviews" element={<ReviewsList />} />
+				<Route path="/quizzes/:quizId/review/:reviewId/edit" element={<ReviewEdit />} />
 			</Routes>
 		</Container>
 	)
