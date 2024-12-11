@@ -11,9 +11,9 @@ function QuizList() {
     const navigate = useNavigate();
 
     const gridOptions = {
-		autoSizeStrategy: {
-			type: 'fitGridWidth',
-		},
+        autoSizeStrategy: {
+            type: 'fitGridWidth',
+        },
         columnDefs: [
             {
                 field: "name",
@@ -37,7 +37,27 @@ function QuizList() {
                 },
             },
             { field: "description", headerName: "Description" },
-            { field: "category.name", headerName: "Category" },
+            { 
+                field: "category.name", 
+                headerName: "Category",
+                cellRenderer: (params) => {
+					const categoryId = params.data.category.categoryId;
+					return (
+						<button
+							style={{
+								backgroundColor: "transparent",
+								color: "blue",
+								border: "none",
+								textDecoration: "underline",
+								cursor: "pointer"
+							}}
+							onClick={() => navigate(`/categories/${categoryId}`)}
+						>
+							{params.value}
+						</button>
+					);
+				},
+            },
             {
                 field: "created",
                 headerName: "Created Date",
@@ -46,25 +66,45 @@ function QuizList() {
                     return date.toLocaleDateString('de-DE');
                 },
             },
-            { field: "actions",
-            headerName: "Actions",
-            cellRenderer: (params) => {
-                const quizId = params.data.quizId;
-                return (
-                    <button
-                        style={{
-                            backgroundColor: "transparent",
-                            color: "blue",
-                            border: "none",
-                            textDecoration: "underline",
-                            cursor: "pointer"
-                        }}
-                        onClick={() => navigate(`/quizzes/${quizId}/reviews`)}
-                    >
-                        See Reviews
+            {
+                cellRenderer: (params) => {
+                    const quizId = params.data.quizId;
+                    return (
+                        <button
+                            style={{
+                                backgroundColor: "transparent",
+                                color: "blue",
+                                border: "none",
+                                textDecoration: "underline",
+                                cursor: "pointer"
+                            }}
+                            onClick={() => navigate(`/seeresults/${quizId}`)}
+                        >
+                            See results
                         </button>
                     );
                 },
+                width: 100,
+            },
+            {
+                cellRenderer: (params) => {
+                    const quizId = params.data.quizId;
+                    return (
+                        <button
+                            style={{
+                                backgroundColor: "transparent",
+                                color: "blue",
+                                border: "none",
+                                textDecoration: "underline",
+                                cursor: "pointer"
+                            }}
+                            onClick={() => navigate(`/quizzes/${quizId}/reviews`)}
+                        >
+                            See reviews
+                        </button>
+                    );
+                },
+                width: 100,
             }
         ]
     }
@@ -72,7 +112,7 @@ function QuizList() {
     function getQuizzes() {
         getAllQuizzes().then((quizzes) => {
             setQuizzes(quizzes);
-    });
+        });
     }
 
     useEffect(() => {
@@ -80,16 +120,16 @@ function QuizList() {
     }, []);
 
     return (
-    <>
-    <Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">Quizzes</Typography>
-        <div className='ag-theme-material' style={{ height: 500 }}>
-            <AgGridReact
-                rowData={quizzes}
-                gridOptions={gridOptions}
-                suppressCellFocus={true}
-            />
-        </div>
-    </>
+        <>
+            <Typography sx={{ pt: 1.5, pl: 1 }} variant="h4">Quizzes</Typography>
+            <div className='ag-theme-material' style={{ height: 500 }}>
+                <AgGridReact
+                    rowData={quizzes}
+                    gridOptions={gridOptions}
+                    suppressCellFocus={true}
+                />
+            </div>
+        </>
     )
 }
 
