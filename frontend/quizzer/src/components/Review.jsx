@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Button, TextField, FormControl, FormLabel, FormControlLabel, Typography, Radio, RadioGroup } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getQuizByID } from "../services/fetches";
 import { saveReviewForQuiz } from "../services/fetches";
 
@@ -13,6 +14,7 @@ function Review() {
     })
     const [ratings, setRatings] = useState([1, 2, 3, 4, 5])
     const [quizDetails, setQuizDetails] = useState([]);
+    const navigate = useNavigate();
 
     async function fetchQuizById() {
         const data = await getQuizByID(quizId);
@@ -26,6 +28,7 @@ function Review() {
     const handleSubmitAnswer = async () => {
         console.log(review)
         saveReviewForQuiz(quizId, review)
+        navigate(`/quizzes/${quizId}/reviews`)
     }
     return (
         <>
