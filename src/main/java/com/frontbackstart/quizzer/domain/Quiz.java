@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Quiz{
@@ -28,7 +27,7 @@ public class Quiz{
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions;
 
-	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
 	public Quiz(){

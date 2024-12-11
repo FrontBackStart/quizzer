@@ -1,11 +1,6 @@
 package com.frontbackstart.quizzer.domain;
-
 import java.util.List;
-
-import org.hibernate.annotations.OnDelete;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 
 @Entity
